@@ -1,4 +1,5 @@
 @echo off
+REM Sincronizar con el remoto antes de subir
 git pull origin main
 
 REM Verificar si hay cambios pendientes
