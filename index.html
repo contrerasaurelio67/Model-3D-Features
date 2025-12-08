@@ -94,7 +94,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 40px;
             border-radius: 24px;
-            width: 100%;
+            width: 100%px;
             max-width: 420px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4),
                 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
@@ -147,6 +147,7 @@
         }
 
         input:focus {
+            outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
             transform: translateY(-1px);
@@ -388,211 +389,7 @@
             margin-top: 18px;
         }
 
-        /* ───────────────────────────────────────────── */
-        /*            BLOQUE 4 – MEJORAS PRO UI          */
-        /* ───────────────────────────────────────────── */
-
-        /* Animación suave al mostrar vistas */
-        .detail-view {
-            animation: fadeInView 0.35s ease forwards;
-            opacity: 0;
-        }
-
-        @keyframes fadeInView {
-            from {
-                opacity: 0;
-                transform: translateY(8px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Cards más vivas */
-        .action-button {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .action-button::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(120deg, transparent, #ffffff22, transparent);
-            transition: 0.5s;
-        }
-
-        .action-button:hover::after {
-            left: 100%;
-        }
-
-        /* Botón activo */
-        .active-action {
-            border-color: var(--primary);
-            box-shadow: 0 0 14px #6366f1aa;
-            transform: translateY(-4px);
-        }
-
-        /* Botones con efecto de presión */
-        button,
-        .action-button {
-            transform-origin: center;
-            transition: transform 0.18s cubic-bezier(0.25, 1.4, 0.45, 1);
-        }
-
-        button:active,
-        .action-button:active {
-            transform: scale(0.94);
-        }
-
-        /* Indicador visual al cargar */
-        .loading-pulse {
-            animation: pulseEffect 0.9s infinite ease-in-out;
-        }
-
-        @keyframes pulseEffect {
-            0% {
-                opacity: .6;
-            }
-
-            50% {
-                opacity: 1;
-            }
-
-            100% {
-                opacity: .6;
-            }
-        }
-
-        /* Mejoras en tablas */
-        table tr:hover td {
-            background: var(--dark-lighter);
-            transition: 0.25s;
-        }
-
-        /* Cards de feed con animación */
-        .feed-card {
-            animation: cardPop 0.35s ease;
-            border-radius: 16px;
-            overflow: hidden;
-        }
-
-        @keyframes cardPop {
-            from {
-                opacity: 0;
-                transform: scale(0.94);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        /* Botón volver */
-        .btn-back {
-            background: var(--dark-lighter);
-            padding: 12px 18px;
-            border-radius: 10px;
-            cursor: pointer;
-            border: 1px solid var(--border);
-        }
-
-        .btn-back:hover {
-            background: var(--primary-dark);
-            border-color: var(--primary);
-            transition: 0.25s;
-        }
-
-        /* Header con glow */
-        header {
-            backdrop-filter: blur(6px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-        }
-
-        /* Grid más fluido */
-        .button-grid {
-            gap: 20px;
-        }
-
-        /* Mejoras tipográficas */
-        h2,
-        h3,
-        h4 {
-            letter-spacing: 0.4px;
-        }
-
-        /* Vista principal suave */
-        #mainView {
-            transition: opacity 0.3s ease;
-        }
-
-        /* ───────────────────────────────────────────── */
-        /*              MEJORAS ADICIONALES              */
-        /* ───────────────────────────────────────────── */
-
-        /* Navegación en header */
-        header nav {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        header nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            gap: 10px;
-        }
-
-        header nav a {
-            color: var(--primary);
-            text-decoration: none;
-            padding: 10px 16px;
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            border-radius: 10px;
-            display: inline-block;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-weight: 500;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(8px);
-        }
-
-        header nav a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: -1;
-        }
-
-        header nav a:hover::before {
-            width: 100%;
-        }
-
-        header nav a:hover {
-            color: white;
-            border-color: transparent;
-            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
-            transform: translateY(-3px);
-        }
-
-        header nav a:active {
-            transform: translateY(-1px);
-        }
-
-        /* Botón en login screen */
+        /* Login link */
         .login-link-container {
             text-align: center;
             margin-top: 15px;
@@ -638,7 +435,7 @@
             transform: translateY(-1px) scale(1);
         }
 
-        /* Footer mejorado */
+        /* Footer */
         footer {
             background: rgba(30, 41, 59, 0.6);
             backdrop-filter: blur(12px);
@@ -687,106 +484,12 @@
             color: var(--secondary);
         }
 
-        /* Accesibilidad - mejores estados de foco */
-        button:focus,
-        input:focus,
-        a:focus {
-            outline: 3px solid var(--primary);
-            outline-offset: 3px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                outline-color: var(--primary);
-            }
-
-            50% {
-                outline-color: var(--secondary);
-            }
-        }
-
-        /* Tooltip system */
-        [data-tooltip] {
-            position: relative;
-        }
-
-        [data-tooltip]::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%) translateY(-8px);
-            padding: 6px 12px;
-            background: rgba(15, 23, 42, 0.95);
-            color: white;
-            font-size: 12px;
-            border-radius: 6px;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1000;
-        }
-
-        body.light [data-tooltip]::after {
-            background: rgba(30, 41, 59, 0.95);
-        }
-
-        [data-tooltip]:hover::after {
-            opacity: 1;
-            transform: translateX(-50%) translateY(-12px);
-        }
-
-        /* Skeleton loader */
-        .skeleton {
-            background: linear-gradient(90deg,
-                    rgba(255, 255, 255, 0.05) 25%,
-                    rgba(255, 255, 255, 0.1) 50%,
-                    rgba(255, 255, 255, 0.05) 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-            border-radius: 8px;
-        }
-
-        @keyframes shimmer {
-            0% {
-                background-position: 200% 0;
-            }
-
-            100% {
-                background-position: -200% 0;
-            }
-        }
-
-        /* Loading state para vistas */
-        .detail-view.loading {
-            opacity: 0.6;
-            pointer-events: none;
-        }
-
-        /* Responsive Design */
+        /* Responsive */
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
                 gap: 16px;
                 align-items: flex-start;
-            }
-
-            header nav {
-                width: 100%;
-            }
-
-            header nav ul {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            header nav a {
-                width: 100%;
-                text-align: center;
             }
 
             .button-grid {
@@ -795,16 +498,6 @@
 
             .login-card {
                 padding: 24px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            header h2 {
-                font-size: 20px;
-            }
-
-            .logo-title h1 {
-                font-size: 24px;
             }
         }
     </style>
@@ -821,591 +514,400 @@
                 <p>Panel Administrativo</p>
             </div>
 
-            }
+            <form id="loginForm" onsubmit="return handleLogin(event)">
+                <input type="text" id="username" placeholder="Usuario" required>
+                <input type="password" id="password" placeholder="Contraseña" required>
+                <button type="submit">Ingresar</button>
+            </form>
+        </div>
+    </div>
 
-            /* Botón volver */
-            .btn-back {
-            background: var(--dark-lighter);
-            padding: 12px 18px;
-            border-radius: 10px;
-            cursor: pointer;
-            border: 1px solid var(--border);
-            }
+    <!-- DASHBOARD -->
+    <div id="dashboardContent">
 
-            .btn-back:hover {
-            background: var(--primary-dark);
-            border-color: var(--primary);
-            transition: 0.25s;
-            }
+        <header>
+            <div>
+                <h2>Panel Administrativo</h2>
+                <p>Bienvenido, <strong id="welcomeUser">Admin</strong></p>
+            </div>
 
-            /* Header con glow */
-            header {
-            backdrop-filter: blur(6px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-            }
+            <div>
+                <button onclick="toggleTheme()">🌞 / 🌙</button>
+                <button onclick="logout()">Salir</button>
+            </div>
+        </header>
 
-            /* Grid más fluido */
-            .button-grid {
-            gap: 20px;
-            }
+        <!-- Main view -->
+        <div id="mainView">
 
-            /* Mejoras tipográficas */
-            h2,
-            h3,
-            h4 {
-            letter-spacing: 0.4px;
-            }
+            <!-- ACCIONES RÁPIDAS -->
+            <div class="section">
+                <h3>Acciones Rápidas</h3>
 
-            /* Vista principal suave */
-            #mainView {
-            transition: opacity 0.3s ease;
-            }
+                <div class="button-grid">
+                    <div class="action-button" onclick="markButton(this); sendAction('generate_topics')">
+                        <h4>💡 Generar nuevos temas</h4>
+                        <p>Crea contenido fresco con IA.</p>
+                    </div>
 
-            /* ───────────────────────────────────────────── */
-            /* MEJORAS ADICIONALES */
-            /* ───────────────────────────────────────────── */
+                    <div class="action-button" onclick="markButton(this); sendAction('force_publish')">
+                        <h4>🚀 Publicar ahora</h4>
+                        <p>Ejecuta una publicación inmediata.</p>
+                    </div>
 
-            /* Navegación en header */
-            header nav {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            }
-
-            header nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            gap: 10px;
-            }
-
-            header nav a {
-            color: var(--primary);
-            text-decoration: none;
-            padding: 8px 14px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            display: inline-block;
-            transition: 0.25s;
-            font-weight: 500;
-            }
-
-            header nav a:hover {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-            transform: translateY(-2px);
-            }
-
-            /* Botón en login screen */
-            .login-link-container {
-            text-align: center;
-            margin-top: 15px;
-            }
-
-            .btn-panel-link {
-            display: inline-block;
-            text-decoration: none;
-            color: var(--primary);
-            padding: 10px 18px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            font-weight: 500;
-            transition: 0.25s;
-            }
-
-            .btn-panel-link:hover {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-            transform: translateY(-2px);
-            }
-
-            /* Footer mejorado */
-            footer {
-            background: var(--dark-light);
-            border-top: 1px solid var(--border);
-            padding: 20px;
-            text-align: center;
-            margin-top: 40px;
-            }
-
-            footer p {
-            margin: 0;
-            color: var(--text-muted);
-            }
-
-            footer a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: 0.25s;
-            }
-
-            footer a:hover {
-            color: var(--secondary);
-            text-decoration: underline;
-            }
-
-            /* Accesibilidad - mejores estados de foco */
-            button:focus,
-            input:focus,
-            a:focus {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
-            }
-
-            /* Loading state para vistas */
-            .detail-view.loading {
-            opacity: 0.6;
-            pointer-events: none;
-            }
-
-            /* Responsive Design */
-            @media (max-width: 768px) {
-            header {
-            flex-direction: column;
-            gap: 16px;
-            align-items: flex-start;
-            }
-
-            header nav {
-            width: 100%;
-            }
-
-            header nav ul {
-            flex-direction: column;
-            width: 100%;
-            }
-
-            header nav a {
-            width: 100%;
-            text-align: center;
-            }
-
-            .button-grid {
-            grid-template-columns: 1fr;
-            }
-
-            .login-card {
-            padding: 24px;
-            }
-            }
-
-            @media (max-width: 480px) {
-            header h2 {
-            font-size: 20px;
-            }
-
-            .logo-title h1 {
-            font-size: 24px;
-            }
-            }
-            </style>
-            </head>
-
-            <body class="dark">
-
-                <!-- LOGIN SCREEN -->
-                <div id="loginScreen">
-                    <div class="login-card">
-
-                        <div class="logo-title">
-                            <h1>Atelier Engine</h1>
-                            <p>Panel Administrativo</p>
-                        </div>
-
-                        <form id="loginForm" onsubmit="return handleLogin(event)">
-                            <input type="text" id="username" placeholder="Usuario" required>
-                            <input type="password" id="password" placeholder="Contraseña" required>
-                            <button type="submit">Ingresar</button>
-                        </form>
-                        <div class="login-link-container">
-                            <a href="https://n8npanelatelier.netlify.app" target="_blank" rel="noopener noreferrer"
-                                class="btn-panel-link" aria-label="Ir al Panel Atelier en nueva pestaña">Ir al Panel</a>
-                        </div>
-
+                    <div class="action-button" onclick="markButton(this); sendAction('generate_from_image')">
+                        <h4>🖼️ Crear post desde imagen</h4>
+                        <p>La IA analiza una imagen y genera un post completo.</p>
                     </div>
                 </div>
+            </div>
 
-                <!-- DASHBOARD -->
-                <div id="dashboardContent">
+            <!-- ESTADO DEL SISTEMA -->
+            <div class="section">
+                <h3>Estado del Sistema</h3>
 
-                    <header>
-                        <div>
-                            <h2>Panel Administrativo</h2>
-                            <p>Bienvenido, <strong id="welcomeUser">Admin</strong></p>
-                        </div>
-
-                        <nav>
-                            <ul>
-                                <li><a href="https://n8npanelatelier.netlify.app" target="_blank"
-                                        rel="noopener noreferrer"
-                                        aria-label="Ir al Panel Atelier en nueva pestaña">Panel Atelier</a></li>
-                            </ul>
-                        </nav>
-
-                        <div>
-                            <button onclick="toggleTheme()" aria-label="Cambiar tema claro/oscuro">🌞 / 🌙</button>
-                            <button onclick="logout()" aria-label="Cerrar sesión">Salir</button>
-                        </div>
-                    </header>
-
-                    <!-- Main view -->
-                    <div id="mainView">
-
-                        <!-- ACCIONES RÁPIDAS -->
-                        <div class="section">
-                            <h3>Acciones Rápidas</h3>
-
-                            <div class="button-grid">
-                                <div class="action-button" onclick="markButton(this); sendAction('generate_topics')">
-                                    <h4>💡 Generar nuevos temas</h4>
-                                    <p>Crea contenido fresco con IA.</p>
-                                </div>
-
-                                <div class="action-button" onclick="markButton(this); sendAction('force_publish')">
-                                    <h4>🚀 Publicar ahora</h4>
-                                    <p>Ejecuta una publicación inmediata.</p>
-                                </div>
-
-                                <div class="action-button"
-                                    onclick="markButton(this); sendAction('generate_from_image')">
-                                    <h4>🖼️ Crear post desde imagen</h4>
-                                    <p>La IA analiza una imagen y genera un post completo.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- ESTADO DEL SISTEMA -->
-                        <div class="section">
-                            <h3>Estado del Sistema</h3>
-
-                            <div class="button-grid">
-                                <div class="action-button" onclick="markButton(this); sendAction('view_queue')">
-                                    <h4>📋 Ver cola</h4>
-                                    <p>Publicaciones pendientes y próximas.</p>
-                                </div>
-
-                                <div class="action-button" onclick="markButton(this); sendAction('view_logs')">
-                                    <h4>📝 Ver logs</h4>
-                                    <p>Registro completo del sistema.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- CONFIGURACIÓN -->
-                        <div class="section">
-                            <h3>Configuración</h3>
-
-                            <div class="button-grid">
-                                <div class="action-button" onclick="markButton(this); sendAction('settings')">
-                                    <h4>⚙️ Ajustes</h4>
-                                    <p>Preferencias globales.</p>
-                                </div>
-
-                                <div class="action-button" onclick="markButton(this); sendAction('feed_preview')">
-                                    <h4>👁️ Vista de feed</h4>
-                                    <p>Previsualización de contenido.</p>
-                                </div>
-                            </div>
-                        </div>
-
+                <div class="button-grid">
+                    <div class="action-button" onclick="markButton(this); sendAction('view_queue')">
+                        <h4>📋 Ver cola</h4>
+                        <p>Publicaciones pendientes y próximas.</p>
                     </div>
 
-                    <!-- VISTAS SECUNDARIAS -->
-                    <div id="viewTopics" class="detail-view">
-                        <button onclick="showMain()">← Volver</button>
-                        <h2>Temas Generados</h2>
-                        <p id="topicsDescription"></p>
-                        <div id="topicsList"></div>
+                    <div class="action-button" onclick="markButton(this); sendAction('view_logs')">
+                        <h4>📝 Ver logs</h4>
+                        <p>Registro completo del sistema.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONFIGURACIÓN -->
+            <div class="section">
+                <h3>Configuración</h3>
+
+                <div class="button-grid">
+                    <div class="action-button" onclick="markButton(this); sendAction('settings')">
+                        <h4>⚙️ Ajustes</h4>
+                        <p>Preferencias globales.</p>
                     </div>
 
-                    <div id="viewForcePublish" class="detail-view">
-                        <button onclick="showMain()">← Volver</button>
-                        <h2>Publicación Ejecutada</h2>
-                        <div id="forcePublishInfo"></div>
+                    <div class="action-button" onclick="markButton(this); sendAction('feed_preview')">
+                        <h4>👁️ Vista de feed</h4>
+                        <p>Previsualización de contenido.</p>
                     </div>
+                </div>
+            </div>
 
-                    <div id="viewImagePost" class="detail-view">
-                        <button onclick="showMain()">← Volver</button>
-                        <h2>Post creado desde imagen</h2>
-                        <div id="imagePostInfo"></div>
-                    </div>
+        </div>
 
-                    <div id="viewQueue" class="detail-view">
-                        <button onclick="showMain()">← Volver</button>
-                        <h2>Cola de Publicaciones</h2>
-                        <div id="queueContent"></div>
-                    </div>
+        <!-- VISTAS SECUNDARIAS -->
+        <div id="viewTopics" class="detail-view">
+            <button onclick="showMain()">← Volver</button>
+            <h2>Temas Generados</h2>
+            <p id="topicsDescription"></p>
+            <div id="topicsList"></div>
+        </div>
 
-                    <div id="viewLogs" class="detail-view">
-                        <button onclick="showMain()">← Volver</button>
-                        <h2>Logs del Sistema</h2>
-                        <div id="logsContent"></div>
-                    </div>
+        <div id="viewForcePublish" class="detail-view">
+            <button onclick="showMain()">← Volver</button>
+            <h2>Publicación Ejecutada</h2>
+            <div id="forcePublishInfo"></div>
+        </div>
 
-                    <div id="viewSettings" class="detail-view">
-                        <button onclick="showMain()">← Volver</button>
-                        <h2>Ajustes del Sistema</h2>
-                        <div id="settingsContent"></div>
-                    </div>
+        <div id="viewImagePost" class="detail-view">
+            <button onclick="showMain()">← Volver</button>
+            <h2>Post creado desde imagen</h2>
+            <div id="imagePostInfo"></div>
+        </div>
 
-                    <div id="viewFeedPreview" class="detail-view">
-                        <button onclick="showMain()">← Volver</button>
-                        <h2>Vista Previa del Feed</h2>
-                        <div id="feedContent" class="feed-grid"></div>
-                    </div>
+        <div id="viewQueue" class="detail-view">
+            <button onclick="showMain()">← Volver</button>
+            <h2>Cola de Publicaciones</h2>
+            <div id="queueContent"></div>
+        </div>
 
-                </div><!-- dashboardContent -->
+        <div id="viewLogs" class="detail-view">
+            <button onclick="showMain()">← Volver</button>
+            <h2>Logs del Sistema</h2>
+            <div id="logsContent"></div>
+        </div>
 
-                <script>
+        <div id="viewSettings" class="detail-view">
+            <button onclick="showMain()">← Volver</button>
+            <h2>Ajustes del Sistema</h2>
+            <div id="settingsContent"></div>
+        </div>
 
-                    // ==============================================================
-                    // CONFIGURACIÓN GLOBAL DEL PANEL Y DATOS DEL WORKFLOW
-                    // ==============================================================
-                    const WEBHOOK_URL = "https://n8npanelatelier.netlify.app/webhook/atelier_panel";
-                    // <- Aquí debes poner el webhook real del workflow maestro (ya incluido en tu JSON maestro)
-                    // ==============================================================
+        <div id="viewFeedPreview" class="detail-view">
+            <button onclick="showMain()">← Volver</button>
+            <h2>Vista Previa del Feed</h2>
+            <div id="feedContent" class="feed-grid"></div>
+        </div>
 
+    </div><!-- dashboardContent -->
 
-                    // ==============================================================
-                    // LOGIN DEL PANEL
-                    // ==============================================================
-                    function handleLogin(event) {
-                        event.preventDefault();
+    <script>
 
-                        const username = document.getElementById("username").value.trim();
-                        const password = document.getElementById("password").value.trim();
-
-                        if (username === "econtreras" && password === "Ec1330") {
-                            document.getElementById("loginScreen").style.display = "none";
-                            document.getElementById("dashboardContent").style.display = "block";
-                            document.getElementById("welcomeUser").innerText = username;
-
-                            Swal.fire({
-                                icon: "success",
-                                title: "Bienvenido ✨",
-                                text: "Acceso concedido",
-                                timer: 1200,
-                                showConfirmButton: false
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: "error",
-                                title: "Acceso denegado",
-                                text: "Usuario o contraseña incorrectos"
-                            });
-                        }
-                    }
+        // ==============================================================
+        // CONFIGURACIÓN GLOBAL
+        // ==============================================================
+        const WEBHOOK_URL = "https://n8npanel.aureliocontrerasatelier.com";
 
 
+        // ==============================================================
+        // PERSISTENCIA DE SESIÓN
+        // ==============================================================
 
-                    // ==============================================================
-                    // CAMBIO DE TEMA (CLARO/OSCURO)
-                    // ==============================================================
-                    function toggleTheme() {
-                        document.body.classList.toggle("light");
+        // Restaurar sesión al cargar
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedSession = sessionStorage.getItem('atelier_session');
+            const savedView = sessionStorage.getItem('atelier_current_view');
 
-                        Swal.fire({
-                            icon: "info",
-                            title: document.body.classList.contains("light")
-                                ? "Modo claro activado"
-                                : "Modo oscuro activado",
-                            timer: 1000,
-                            showConfirmButton: false
-                        });
-                    }
+            if (savedSession) {
+                const sessionData = JSON.parse(savedSession);
+                document.getElementById("loginScreen").style.display = "none";
+                document.getElementById("dashboardContent").style.display = "block";
+                document.getElementById("welcomeUser").innerText = sessionData.username;
 
+                // Restaurar vista activa
+                if (savedView && savedView !== 'mainView') {
+                    hideAllViews();
+                    document.getElementById(savedView).classList.add('active');
+                }
+            }
+        });
 
-
-                    // ==============================================================
-                    // LOGOUT
-                    // ==============================================================
-                    function logout() {
-                        Swal.fire({
-                            title: "Cerrar sesión",
-                            text: "¿Deseas salir?",
-                            icon: "warning",
-                            showCancelButton: true,
-                            confirmButtonText: "Salir",
-                            confirmButtonColor: "#ef4444",
-                            cancelButtonColor: "#4f46e5",
-                        }).then(res => {
-                            if (res.isConfirmed) {
-                                location.reload();
-                            }
-                        });
-                    }
+        // Guardar estado en cada cambio
+        function saveSessionState() {
+            const activeView = document.querySelector('.detail-view.active');
+            const currentView = activeView ? activeView.id : 'mainView';
+            sessionStorage.setItem('atelier_current_view', currentView);
+        }
 
 
+        // ==============================================================
+        // LOGIN
+        // ==============================================================
+        function handleLogin(event) {
+            event.preventDefault();
 
-                    // ==============================================================
-                    // CONTROL DE CAMBIO ENTRE VISTAS
-                    // ==============================================================
-                    function hideAllViews() {
-                        document.querySelectorAll(".detail-view").forEach(v => v.classList.remove("active"));
-                        document.getElementById("mainView").style.display = "none";
-                    }
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
 
-                    function showMain() {
-                        hideAllViews();
-                        document.getElementById("mainView").style.display = "block";
-                    }
+            if (username === "econtreras" && password === "Ec1330") {
+                // Guardar sesión
+                sessionStorage.setItem('atelier_session', JSON.stringify({ username }));
 
-                    let returnTimer = null;
+                document.getElementById("loginScreen").style.display = "none";
+                document.getElementById("dashboardContent").style.display = "block";
+                document.getElementById("welcomeUser").innerText = username;
 
-                    function showView(id) {
-                        hideAllViews();
-                        const view = document.getElementById(id);
-                        view.classList.add("active");
-
-                        clearTimeout(returnTimer);
-                        returnTimer = setTimeout(() => {
-                            showMain();
-                            Swal.fire({
-                                icon: "info",
-                                title: "Vista cerrada automáticamente",
-                                timer: 1500,
-                                showConfirmButton: false
-                            });
-                        }, 45000);
-                    }
+                Swal.fire({
+                    icon: "success",
+                    title: "Bienvenido ✨",
+                    text: "Acceso concedido",
+                    timer: 1200,
+                    showConfirmButton: false
+                });
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Acceso denegado",
+                    text: "Usuario o contraseña incorrectos"
+                });
+            }
+        }
 
 
 
-                    // ==============================================================
-                    // SELECCIÓN DE BOTÓN ACTIVO
-                    // ==============================================================
-                    let lastButton = null;
+        // ==============================================================
+        // CAMBIO DE TEMA
+        // ==============================================================
+        function toggleTheme() {
+            document.body.classList.toggle("light");
 
-                    function markButton(btn) {
-                        if (lastButton) lastButton.classList.remove("active-action");
-                        lastButton = btn;
-                        btn.classList.add("active-action");
-                    }
-
-
-
-                    // ==============================================================
-                    // ENVÍO DE ACCIONES AL WORKFLOW PRINCIPAL
-                    // ==============================================================
-                    async function sendAction(action) {
-                        Swal.fire({
-                            title: "Procesando…",
-                            text: "Conectando con Atelier Engine",
-                            allowOutsideClick: false,
-                            didOpen: () => Swal.showLoading()
-                        });
-
-                        try {
-                            const response = await fetch(`${WEBHOOK_URL}?action=${action}`);
-                            const data = await response.json();
-
-                            Swal.close();
-
-                            if (!data.success) {
-                                Swal.fire({
-                                    icon: "error",
-                                    title: "Acción fallida",
-                                    text: data.message || "Ocurrió un error inesperado"
-                                });
-                                return;
-                            }
-
-                            processActionResult(action, data);
-
-                        } catch (err) {
-                            Swal.close();
-                            Swal.fire({
-                                icon: "error",
-                                title: "N8N no responde",
-                                text: "Verifica que el workflow esté encendido"
-                            });
-                        }
-                    }
+            Swal.fire({
+                icon: "info",
+                title: document.body.classList.contains("light")
+                    ? "Modo claro activado"
+                    : "Modo oscuro activado",
+                timer: 1000,
+                showConfirmButton: false
+            });
+        }
 
 
 
-                    // ==============================================================
-                    // PROCESAMIENTO DE RESULTADOS SEGÚN LA ACCIÓN
-                    // ==============================================================
-                    function processActionResult(action, data) {
-                        switch (action) {
-
-                            case "generate_topics":
-                                renderTopics(data);
-                                showView("viewTopics");
-                                break;
-
-                            case "force_publish":
-                                renderForcePublish(data);
-                                showView("viewForcePublish");
-                                break;
-
-                            case "generate_from_image":
-                                renderImagePost(data);
-                                showView("viewImagePost");
-                                break;
-
-                            case "view_queue":
-                                renderQueue(data);
-                                showView("viewQueue");
-                                break;
-
-                            case "view_logs":
-                                renderLogs(data);
-                                showView("viewLogs");
-                                break;
-
-                            case "settings":
-                                renderSettings(data);
-                                showView("viewSettings");
-                                break;
-
-                            case "feed_preview":
-                                renderFeedPreview(data);
-                                showView("viewFeedPreview");
-                                break;
-
-                            default:
-                                Swal.fire({
-                                    icon: "error",
-                                    title: "Acción desconocida",
-                                    text: "El workflow devolvió una acción no registrada"
-                                });
-                        }
-                    }
+        // ==============================================================
+        // LOGOUT
+        // ==============================================================
+        function logout() {
+            Swal.fire({
+                title: "Cerrar sesión",
+                text: "¿Deseas salir?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Salir",
+                confirmButtonColor: "#ef4444",
+                cancelButtonColor: "#4f46e5",
+            }).then(res => {
+                if (res.isConfirmed) {
+                    sessionStorage.clear();
+                    location.reload();
+                }
+            });
+        }
 
 
 
-                    // ==============================================================
-                    // RENDERIZADORES DE DATOS (UI)
-                    // ==============================================================
+        // ==============================================================
+        // CONTROL DE VISTAS
+        // ==============================================================
+        function hideAllViews() {
+            document.querySelectorAll(".detail-view").forEach(v => v.classList.remove("active"));
+            document.getElementById("mainView").style.display = "none";
+        }
 
-                    // ==== 1. Temas generados por IA ====
-                    function renderTopics(data) {
-                        document.getElementById("topicsDescription").innerText = data.message;
+        function showMain() {
+            hideAllViews();
+            document.getElementById("mainView").style.display = "block";
+            saveSessionState();
+        }
 
-                        const list = document.getElementById("topicsList");
-                        list.innerHTML = "";
-
-                        data.data.topics.forEach(topic => {
-                            const card = document.createElement("div");
-                            card.className = "feed-card";
-                            card.innerHTML = `<strong>${topic}</strong>`;
-                            list.appendChild(card);
-                        });
-                    }
+        function showView(id) {
+            hideAllViews();
+            const view = document.getElementById(id);
+            view.classList.add("active");
+            saveSessionState();
+        }
 
 
 
-                    // ==== 2. Publicación forzada ====
-                    function renderForcePublish(data) {
-                        const p = data.data.post;
+        // ==============================================================
+        // SELECCIÓN DE BOTÓN ACTIVO
+        // ==============================================================
+        let lastButton = null;
 
-                        document.getElementById("forcePublishInfo").innerHTML = `
+        function markButton(btn) {
+            if (lastButton) lastButton.classList.remove("active-action");
+            lastButton = btn;
+            btn.classList.add("active-action");
+        }
+
+
+
+        // ==============================================================
+        // ENVÍO DE ACCIONES
+        // ==============================================================
+        async function sendAction(action) {
+            Swal.fire({
+                title: "Procesando…",
+                text: "Conectando con Atelier Engine",
+                allowOutsideClick: false,
+                didOpen: () => Swal.showLoading()
+            });
+
+            try {
+                const response = await fetch(`${WEBHOOK_URL}?action=${action}`);
+                const data = await response.json();
+
+                Swal.close();
+
+                if (!data.success) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Acción fallida",
+                        text: data.message || "Ocurrió un error inesperado"
+                    });
+                    return;
+                }
+
+                processActionResult(action, data);
+
+            } catch (err) {
+                Swal.close();
+                Swal.fire({
+                    icon: "error",
+                    title: "N8N no responde",
+                    text: "Verifica que el workflow esté encendido"
+                });
+            }
+        }
+
+
+
+        // ==============================================================
+        // PROCESAMIENTO DE RESULTADOS
+        // ==============================================================
+        function processActionResult(action, data) {
+            switch (action) {
+
+                case "generate_topics":
+                    renderTopics(data);
+                    showView("viewTopics");
+                    break;
+
+                case "force_publish":
+                    renderForcePublish(data);
+                    showView("viewForcePublish");
+                    break;
+
+                case "generate_from_image":
+                    renderImagePost(data);
+                    showView("viewImagePost");
+                    break;
+
+                case "view_queue":
+                    renderQueue(data);
+                    showView("viewQueue");
+                    break;
+
+                case "view_logs":
+                    renderLogs(data);
+                    showView("viewLogs");
+                    break;
+
+                case "settings":
+                    renderSettings(data);
+                    showView("viewSettings");
+                    break;
+
+                case "feed_preview":
+                    renderFeedPreview(data);
+                    showView("viewFeedPreview");
+                    break;
+
+                default:
+                    Swal.fire({
+                        icon: "error",
+                        title: "Acción desconocida",
+                        text: "El workflow devolvió una acción no registrada"
+                    });
+            }
+        }
+
+
+
+        // ==============================================================
+        // RENDERIZADORES DE DATOS
+        // ==============================================================
+
+        function renderTopics(data) {
+            document.getElementById("topicsDescription").innerText = data.message;
+
+            const list = document.getElementById("topicsList");
+            list.innerHTML = "";
+
+            data.data.topics.forEach(topic => {
+                const card = document.createElement("div");
+                card.className = "feed-card";
+                card.innerHTML = `<strong>${topic}</strong>`;
+                list.appendChild(card);
+            });
+        }
+
+        function renderForcePublish(data) {
+            const p = data.data.post;
+
+            document.getElementById("forcePublishInfo").innerHTML = `
         <div class="feed-card">
             <p><strong>Caption:</strong> ${p.caption}</p>
             <p><strong>Hashtags:</strong> ${p.hashtags}</p>
@@ -1414,30 +916,24 @@
             <p><strong>ID de Publicación:</strong> ${p.post_id}</p>
         </div>
     `;
-                    }
+        }
 
+        function renderImagePost(data) {
+            const info = data.data;
 
-
-                    // ==== 3. Post desde imagen ====
-                    function renderImagePost(data) {
-                        const info = data.data;
-
-                        document.getElementById("imagePostInfo").innerHTML = `
+            document.getElementById("imagePostInfo").innerHTML = `
         <div class="feed-card">
             <p><strong>Caption:</strong> ${info.caption}</p>
             <p><strong>Hashtags:</strong> ${info.hashtags.join(", ")}</p>
             <p><strong>Confianza IA:</strong> ${(info.confidence * 100).toFixed(1)}%</p>
         </div>
     `;
-                    }
+        }
 
+        function renderQueue(data) {
+            const c = document.getElementById("queueContent");
 
-
-                    // ==== 4. Cola de publicaciones ====
-                    function renderQueue(data) {
-                        const c = document.getElementById("queueContent");
-
-                        let html = `
+            let html = `
         <table>
             <tr>
                 <th>ID</th>
@@ -1447,8 +943,8 @@
             </tr>
     `;
 
-                        data.data.queue.forEach(q => {
-                            html += `
+            data.data.queue.forEach(q => {
+                html += `
             <tr>
                 <td>${q.id}</td>
                 <td>${q.caption}</td>
@@ -1456,19 +952,16 @@
                 <td>${q.datetime}</td>
             </tr>
         `;
-                        });
+            });
 
-                        html += "</table>";
-                        c.innerHTML = html;
-                    }
+            html += "</table>";
+            c.innerHTML = html;
+        }
 
+        function renderLogs(data) {
+            const logs = data.data.logs;
 
-
-                    // ==== 5. Logs del sistema ====
-                    function renderLogs(data) {
-                        const logs = data.data.logs;
-
-                        let html = `
+            let html = `
         <table>
             <tr>
                 <th>Fecha</th>
@@ -1477,27 +970,24 @@
             </tr>
     `;
 
-                        logs.forEach(l => {
-                            html += `
+            logs.forEach(l => {
+                html += `
             <tr>
                 <td>${l.time}</td>
                 <td>${l.action}</td>
                 <td>${l.status}</td>
             </tr>
         `;
-                        });
+            });
 
-                        html += "</table>";
-                        document.getElementById("logsContent").innerHTML = html;
-                    }
+            html += "</table>";
+            document.getElementById("logsContent").innerHTML = html;
+        }
 
+        function renderSettings(data) {
+            const s = data.data.settings;
 
-
-                    // ==== 6. Ajustes del sistema ====
-                    function renderSettings(data) {
-                        const s = data.data.settings;
-
-                        document.getElementById("settingsContent").innerHTML = `
+            document.getElementById("settingsContent").innerHTML = `
         <div class="feed-card">
             <p><strong>Modo:</strong> ${s.dark_mode ? "Oscuro" : "Claro"}</p>
             <p><strong>Auto-Post:</strong> ${s.auto_post ? "Sí" : "No"}</p>
@@ -1505,752 +995,32 @@
             <p><strong>Posts hoy:</strong> ${s.posts_today}</p>
         </div>
     `;
-                    }
+        }
 
+        function renderFeedPreview(data) {
+            const container = document.getElementById("feedContent");
+            container.innerHTML = "";
 
+            data.data.feed.forEach(card => {
+                const el = document.createElement("div");
+                el.className = "feed-card";
 
-                    // ==== 7. Vista previa del feed ====
-                    function renderFeedPreview(data) {
-                        const container = document.getElementById("feedContent");
-                        container.innerHTML = "";
-
-                        data.data.feed.forEach(card => {
-                            const el = document.createElement("div");
-                            el.className = "feed-card";
-
-                            el.innerHTML = `
+                el.innerHTML = `
             <img src="${card.image}" alt="preview">
             <p><strong>${card.caption}</strong></p>
             <p>❤️ ${card.likes} likes</p>
         `;
 
-                            container.appendChild(el);
-                        });
-                    }
-                    // ==============================================================
-                    // BLOQUE 9 — AUTO-CHECK N8N STATUS
-                    // ==============================================================
-
-                    async function checkEngineStatus() {
-                        try {
-                            const res = await fetch(`${WEBHOOK_URL}?ping=1`);
-                            if (!res.ok) throw new Error();
-
-                            const data = await res.json();
-
-                            if (data.status !== "ok") {
-                                Swal.fire({
-                                    icon: "warning",
-                                    title: "Atelier Engine inactivo",
-                                    text: "El workflow no respondió.",
-                                    timer: 1800,
-                                    showConfirmButton: false,
-                                });
-                            }
-                        } catch (e) {
-                            Swal.fire({
-                                icon: "warning",
-                                title: "No se pudo contactar con N8N",
-                                text: "¿Workflow apagado?",
-                                timer: 1800,
-                                showConfirmButton: false
-                            });
-                        }
-                    }
-
-                    // Ejecuta revisión cada 20 segundos
-                    setInterval(checkEngineStatus, 20000);
-
-
-                    // ==============================================================
-                    // BLOQUE 10 — AUTO-REFRESH INTELIGENTE
-                    // ==============================================================
-
-                    let autoRefreshTarget = null;
-
-                    // Define qué vista se refresca sola
-                    function enableAutoRefresh(view) {
-                        autoRefreshTarget = view;
-                    }
-
-                    // Desactiva auto-refresco cuando vuelves al panel
-                    function disableAutoRefresh() {
-                        autoRefreshTarget = null;
-                    }
-
-                    // Motor de refresco
-                    setInterval(async () => {
-                        if (!autoRefreshTarget) return;
-
-                        try {
-                            const res = await fetch(`${WEBHOOK_URL}?action=${autoRefreshTarget}`);
-                            const data = await res.json();
-
-                            // Render dinámico según vista activa
-                            if (autoRefreshTarget === "view_logs") renderLogs(data);
-                            if (autoRefreshTarget === "view_queue") renderQueue(data);
-                            if (autoRefreshTarget === "feed_preview") renderFeedPreview(data);
-
-                        } catch (e) {
-                            console.warn("Auto-refresh failed:", e);
-                        }
-                    }, 8000); // refresca cada 8s
-
-
-                    // Modifica los botones para activar/desactivar auto-refresh
-
-                    const ORIGINAL_processActionResult = processActionResult;
-
-                    processActionResult = function (action, data) {
-                        disableAutoRefresh();
-
-                        if (action === "view_logs") enableAutoRefresh("view_logs");
-                        if (action === "view_queue") enableAutoRefresh("view_queue");
-                        if (action === "feed_preview") enableAutoRefresh("feed_preview");
-
-                        ORIGINAL_processActionResult(action, data);
-                    };
-
-
-                    // ==============================================================
-                    // BLOQUE 11 — ANTI-DOBLE ACCIÓN / CLICK-LOCK
-                    // ==============================================================
-
-                    let actionInProgress = false;
-                    const ACTION_TIMEOUT = 4500; // 4.5 segundos
-
-                    async function safeAction(action) {
-
-                        if (actionInProgress) {
-                            Swal.fire({
-                                icon: "info",
-                                title: "Espera un momento…",
-                                text: "Ya estás ejecutando una acción.",
-                                timer: 1200,
-                                showConfirmButton: false
-                            });
-                            return;
-                        }
-
-                        actionInProgress = true;
-
-                        try {
-                            await sendAction(action);
-                        } catch (e) {
-                            console.error("safeAction error:", e);
-                        }
-
-                        setTimeout(() => {
-                            actionInProgress = false;
-                        }, ACTION_TIMEOUT);
-                    }
-
-
-                    // Reemplaza todas las llamadas de sendAction() por safeAction()
-
-                    document.querySelectorAll(".action-button").forEach(btn => {
-                        const onclick = btn.getAttribute("onclick");
-                        if (!onclick) return;
-
-                        if (onclick.includes("sendAction(")) {
-                            const action = onclick.match(/sendAction\('(.*)'\)/)[1];
-                            btn.setAttribute("onclick", `markButton(this); safeAction('${action}')`);
-                        }
-                    });
-                    // ==============================================================
-                    // BLOQUE 12 — TOAST ENGINE (NOTIFICACIONES PREMIUM)
-                    // ==============================================================
-
-                    function toast(message, type = "info", duration = 2600) {
-                        const colors = {
-                            success: "#10b981",
-                            error: "#ef4444",
-                            warning: "#f59e0b",
-                            info: "#6366f1"
-                        };
-
-                        const toast = document.createElement("div");
-                        toast.style.position = "fixed";
-                        toast.style.bottom = "26px";
-                        toast.style.right = "26px";
-                        toast.style.padding = "14px 22px";
-                        toast.style.borderRadius = "12px";
-                        toast.style.background = colors[type] || colors.info;
-                        toast.style.color = "#fff";
-                        toast.style.fontWeight = "600";
-                        toast.style.boxShadow = "0 6px 18px rgba(0,0,0,0.25)";
-                        toast.style.zIndex = "99999";
-                        toast.style.opacity = "0";
-                        toast.style.transform = "translateY(20px)";
-                        toast.style.transition = "0.35s";
-                        toast.innerText = message;
-
-                        document.body.appendChild(toast);
-
-                        setTimeout(() => {
-                            toast.style.opacity = "1";
-                            toast.style.transform = "translateY(0)";
-                        }, 30);
-
-                        setTimeout(() => {
-                            toast.style.opacity = "0";
-                            toast.style.transform = "translateY(20px)";
-                            setTimeout(() => toast.remove(), 350);
-                        }, duration);
-                    }
-
-
-                    // ==============================================================
-                    // BLOQUE 13 — LOADING OVERLAY PROFESIONAL
-                    // ==============================================================
-
-                    const loaderOverlay = document.createElement("div");
-                    loaderOverlay.style.position = "fixed";
-                    loaderOverlay.style.top = "0";
-                    loaderOverlay.style.left = "0";
-                    loaderOverlay.style.width = "100%";
-                    loaderOverlay.style.height = "100%";
-                    loaderOverlay.style.background = "rgba(0,0,0,0.4)";
-                    loaderOverlay.style.display = "none";
-                    loaderOverlay.style.alignItems = "center";
-                    loaderOverlay.style.justifyContent = "center";
-                    loaderOverlay.style.zIndex = "9999";
-                    loaderOverlay.innerHTML = `
-    <div style="
-        background:#1e293b;
-        padding:28px 34px;
-        border-radius:14px;
-        color:#f1f5f9;
-        font-size:18px;
-        font-weight:600;
-        box-shadow:0 12px 32px rgba(0,0,0,0.35);">
-        Procesando solicitud...
-    </div>
-`;
-                    document.body.appendChild(loaderOverlay);
-
-                    function showLoader() {
-                        loaderOverlay.style.display = "flex";
-                    }
-
-                    function hideLoader() {
-                        loaderOverlay.style.display = "none";
-                    }
-
-
-                    // Integración automática con safeAction()
-                    const ORIGINAL_safeAction = safeAction;
-
-                    safeAction = async function (action) {
-                        showLoader();
-                        await ORIGINAL_safeAction(action);
-                        setTimeout(hideLoader, 300);
-                    };
-
-
-                    // ==============================================================
-                    // BLOQUE 14 — MODO OFFLINE INTELIGENTE
-                    // ==============================================================
-
-                    let offlineMode = false;
-
-                    function setOffline(on) {
-                        offlineMode = on;
-
-                        if (on) {
-                            document.body.style.filter = "grayscale(100%) brightness(70%)";
-                            toast("Sin conexión – Modo offline activo", "warning");
-                        } else {
-                            document.body.style.filter = "none";
-                            toast("Conexión restaurada", "success");
-                        }
-                    }
-
-                    // Detecta conexión perdida
-                    window.addEventListener("offline", () => setOffline(true));
-                    window.addEventListener("online", () => setOffline(false));
-
-
-                    // Detector constante de estado
-                    setInterval(() => {
-                        if (!navigator.onLine) {
-                            setOffline(true);
-                            return;
-                        }
-                    }, 6000);
-
-
-                    // ==============================================================
-                    // BLOQUE 15 — HISTORIAL LOCAL (AUDITORÍA DEL USUARIO)
-                    // ==============================================================
-
-                    function logLocal(action, status = "ok") {
-                        const entry = {
-                            action,
-                            status,
-                            time: new Date().toLocaleString()
-                        };
-
-                        const history = JSON.parse(localStorage.getItem("atelier_local_history") || "[]");
-                        history.push(entry);
-                        localStorage.setItem("atelier_local_history", JSON.stringify(history));
-                    }
-
-                    // Integrarlo con todas las acciones seguras
-                    const ORIGINAL_safeAction2 = safeAction;
-
-                    safeAction = async function (action) {
-                        logLocal(action, "sent");
-                        await ORIGINAL_safeAction2(action);
-                        logLocal(action, "completed");
-                    };
-
-                    // Exponer botón para ver historial (puedes colocarlo donde quieras)
-                    function viewLocalHistory() {
-                        const data = JSON.parse(localStorage.getItem("atelier_local_history") || "[]");
-
-                        let html = "<table><tr><th>Fecha</th><th>Acción</th><th>Estado</th></tr>";
-                        data.forEach(r => {
-                            html += `<tr><td>${r.time}</td><td>${r.action}</td><td>${r.status}</td></tr>`;
-                        });
-                        html += "</table>";
-
-                        Swal.fire({
-                            title: "Historial local",
-                            html,
-                            width: 600,
-                            confirmButtonText: "Cerrar"
-                        });
-                    }
-                    // ==============================================================
-                    // BLOQUE 16 — SUPERVISOR ENGINE (Monitorea panel + N8N)
-                    // ==============================================================
-
-                    let supervisorInterval = null;
-
-                    function startSupervisor() {
-
-                        if (supervisorInterval) clearInterval(supervisorInterval);
-
-                        supervisorInterval = setInterval(async () => {
-                            try {
-                                const res = await fetch(`${WEBHOOK_URL}?ping=supervisor`, {
-                                    method: "GET",
-                                    cache: "no-store"
-                                });
-
-                                if (!res.ok) throw new Error("N8N offline");
-
-                                const data = await res.json();
-
-                                if (data.status !== "ok") {
-                                    toast("⚠️ N8N respondió pero con estado irregular.", "warning");
-                                }
-
-                            } catch (err) {
-                                toast("❌ N8N no responde – intentando reconectar...", "danger");
-                                triggerAutoReconnect();
-                            }
-                        }, 10000); // cada 10 segundos
-                    }
-
-                    startSupervisor();
-
-
-                    // ==============================================================
-                    // BLOQUE 17 — REGISTRO GLOBAL DE ERRORES (Error Catcher Pro)
-                    // ==============================================================
-
-                    window.onerror = function (msg, src, line, col, err) {
-                        const errorInfo = {
-                            message: msg,
-                            line,
-                            col,
-                            source: src,
-                            stack: err?.stack || "No-stack"
-                        };
-
-                        console.error("🔥 GLOBAL ERROR:", errorInfo);
-
-                        toast("Error inesperado en el panel.", "danger", 3800);
-
-                        // Guardar en local audit
-                        const logs = JSON.parse(localStorage.getItem("atelier_error_logs") || "[]");
-                        logs.push({
-                            ...errorInfo,
-                            time: new Date().toLocaleString()
-                        });
-                        localStorage.setItem("atelier_error_logs", JSON.stringify(logs));
-
-                        return false;
-                    };
-
-                    function viewErrorLogs() {
-                        const logs = JSON.parse(localStorage.getItem("atelier_error_logs") || "[]");
-
-                        if (!logs.length) {
-                            Swal.fire("Sin errores registrados", "Todo limpio.", "success");
-                            return;
-                        }
-
-                        let html = "<table><tr><th>Hora</th><th>Error</th><th>Línea</th></tr>";
-
-                        logs.forEach(e => {
-                            html += `<tr>
-            <td>${e.time}</td>
-            <td>${e.message}</td>
-            <td>${e.line}:${e.col}</td>
-        </tr>`;
-                        });
-
-                        html += "</table>";
-
-                        Swal.fire({
-                            title: "Errores del Panel",
-                            html,
-                            width: 700
-                        });
-                    }
-
-
-                    // ==============================================================
-                    // BLOQUE 18 — PANEL STATS LIVE (Actualización dinámica)
-                    // ==============================================================
-
-                    let panelStats = {
-                        pending: 0,
-                        todayPosts: 0,
-                        topicsLeft: 0,
-                        lastSync: "-"
-                    };
-
-                    async function refreshPanelStats() {
-                        try {
-                            const res = await fetch(`${WEBHOOK_URL}?action=get_stats`);
-                            const data = await res.json();
-
-                            if (data.success) {
-                                panelStats.pending = data.stats.pending;
-                                panelStats.todayPosts = data.stats.todayPosts;
-                                panelStats.topicsLeft = data.stats.topicsLeft;
-                                panelStats.lastSync = new Date().toLocaleTimeString();
-                            }
-
-                            updateStatsUI();
-
-                        } catch (err) {
-                            console.warn("Stats error:", err);
-                        }
-                    }
-
-                    function updateStatsUI() {
-                        let statsText = `
-        <div style="padding:12px 0;">
-            <p><strong>📌 Publicaciones pendientes:</strong> ${panelStats.pending}</p>
-            <p><strong>📝 Publicaciones hoy:</strong> ${panelStats.todayPosts}</p>
-            <p><strong>💡 Temas restantes:</strong> ${panelStats.topicsLeft}</p>
-            <p><strong>🔄 Última sincronización:</strong> ${panelStats.lastSync}</p>
-        </div>
-    `;
-
-                        const statsZone = document.getElementById("viewSettingsStatsLive");
-
-                        if (statsZone) {
-                            statsZone.innerHTML = statsText;
-                        }
-                    }
-
-                    // actualizar cada 20 segundos
-                    setInterval(refreshPanelStats, 20000);
-
-                    refreshPanelStats();
-
-
-                    // ==============================================================
-                    // BLOQUE 19 — AUTO-RECONEXIÓN INTELIGENTE
-                    // ==============================================================
-
-                    let reconnecting = false;
-
-                    async function triggerAutoReconnect() {
-                        if (reconnecting) return;
-
-                        reconnecting = true;
-
-                        toast("Intentando reconectar con N8N…", "warning");
-
-                        for (let i = 1; i <= 6; i++) {
-                            await new Promise(r => setTimeout(r, 3000));
-
-                            try {
-                                const res = await fetch(`${WEBHOOK_URL}?ping=reconnect`);
-                                const data = await res.json();
-
-                                if (data.status === "ok") {
-                                    toast("🔄 Reconexión exitosa.", "success");
-                                    reconnecting = false;
-                                    return;
-                                }
-
-                            } catch (err) {
-                                // sigue intentando
-                            }
-                        }
-
-                        toast("❌ No se pudo reconectar a N8N.", "danger");
-                        reconnecting = false;
-                    }
-
-
-                    // ==============================================================
-                    // BLOQUE 20 — ANTI-FREEZE ENGINE (Evita congelamientos)
-                    // ==============================================================
-
-                    let lastInteraction = Date.now();
-
-                    window.addEventListener("mousemove", () => lastInteraction = Date.now());
-                    window.addEventListener("keydown", () => lastInteraction = Date.now());
-
-                    setInterval(() => {
-                        const now = Date.now();
-
-                        // Si el panel queda inactivo 4 minutos, recarga silenciosamente
-                        if (now - lastInteraction > 240000) {
-                            location.reload();
-                        }
-
-                    }, 15000);
-                    // =====================================================
-                    // BLOQUE 21 — SYNC CON WORKFLOW MAESTRO
-                    // =====================================================
-                    async function atelierSync() {
-                        try {
-                            const res = await fetch(`${WEBHOOK_URL}?action=sync_status`);
-                            const data = await res.json();
-
-                            if (data.success) {
-                                console.log("✔ Atelier Sync:", data.status);
-                            } else {
-                                console.warn("⚠ Sync incompleto:", data.message);
-                            }
-                        } catch (err) {
-                            console.warn("❌ Error en Atelier Sync", err);
-                        }
-                    }
-                    setInterval(atelierSync, 15000);
-
-
-                    // =====================================================
-                    // BLOQUE 22 — DIAGNÓSTICO N8N
-                    // =====================================================
-                    async function runDiagnostic() {
-                        Swal.fire({
-                            title: "Ejecutando diagnóstico...",
-                            text: "Analizando comunicación con N8N",
-                            allowOutsideClick: false,
-                            didOpen: () => Swal.showLoading()
-                        });
-
-                        try {
-                            const res = await fetch(`${WEBHOOK_URL}?action=diagnostic`);
-                            const data = await res.json();
-
-                            Swal.fire({
-                                icon: data.success ? "success" : "error",
-                                title: "Resultado del Diagnóstico",
-                                html: `
-                <p><strong>Webhook:</strong> ${data.details.webhook}</p>
-                <p><strong>Cola:</strong> ${data.details.queue}</p>
-                <p><strong>Base de datos:</strong> ${data.details.database}</p>
-            `
-                            });
-
-                        } catch (err) {
-                            Swal.fire({
-                                icon: "error",
-                                title: "N8N no respondió",
-                                text: "No se pudo completar el diagnóstico."
-                            });
-                        }
-                    }
-
-
-                    // =====================================================
-                    // BLOQUE 23 — SAFE QUEUE (Prevención de duplicados)
-                    // =====================================================
-                    function safeQueueGuard() {
-                        const last = localStorage.getItem("atelier_last_action");
-                        const now = Date.now();
-
-                        if (last && now - last < 4000) {
-                            return false; // Protección activada
-                        }
-
-                        localStorage.setItem("atelier_last_action", now);
-                        return true;
-                    }
-
-                    async function sendActionSafe(action) {
-                        if (!safeQueueGuard()) {
-                            return Swal.fire({
-                                icon: "warning",
-                                title: "Espera un momento",
-                                text: "Acciones muy seguidas pueden duplicar publicaciones."
-                            });
-                        }
-                        return sendAction(action);
-                    }
-
-
-                    // =====================================================
-                    // BLOQUE 24 — CONTROL DE ACCIONES SIMULTÁNEAS
-                    // =====================================================
-                    // actionInProgress ya está declarada en el Bloque 11. Reutilizamos.
-
-                    async function secureAction(action) {
-                        if (actionInProgress) {
-                            return Swal.fire({
-                                icon: "warning",
-                                title: "Acción en proceso",
-                                text: "Debes esperar que termine la acción actual."
-                            });
-                        }
-
-                        actionInProgress = true;
-                        await sendActionSafe(action);
-                        actionInProgress = false;
-                    }
-
-
-                    // =====================================================
-                    // BLOQUE 25 — LIMPIEZA PROFUNDA (CACHE + COLAS LOCALES)
-                    // =====================================================
-                    function atelierCacheClean() {
-                        localStorage.removeItem("atelier_last_action");
-                        localStorage.removeItem("atelier_session");
-                        console.log("✔ Limpieza local completada");
-                    }
-
-                    window.addEventListener("beforeunload", () => {
-                        atelierCacheClean();
-                    });
-
-
-                    // =====================================================
-                    // BLOQUE 26 — CONTROL DE SESIÓN EXTENDIDO
-                    // =====================================================
-                    function saveSession(user) {
-                        localStorage.setItem("atelier_session", user);
-                    }
-
-                    function restoreSession() {
-                        const user = localStorage.getItem("atelier_session");
-                        if (user) {
-                            document.getElementById("loginScreen").classList.add("hidden");
-                            document.getElementById("dashboardContent").classList.add("active");
-                            document.getElementById("welcomeUser").innerText = user;
-                        }
-                    }
-                    restoreSession();
-
-
-                    // =====================================================
-                    // BLOQUE 27 — COMPATIBILIDAD EXTENDIDA IMG → POST
-                    // =====================================================
-                    async function uploadAndGenerateFromImage(fileBase64) {
-                        Swal.fire({
-                            title: "Analizando imagen...",
-                            text: "La IA está generando el contenido",
-                            allowOutsideClick: false,
-                            didOpen: () => Swal.showLoading()
-                        });
-
-                        try {
-                            const res = await fetch(WEBHOOK_URL, {
-                                method: "POST",
-                                headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify({
-                                    action: "generate_from_uploaded_image",
-                                    image: fileBase64
-                                })
-                            });
-
-                            const data = await res.json();
-                            Swal.close();
-
-                            if (data.success) {
-                                renderImagePost(data);
-                                showView("viewImagePost");
-                            } else {
-                                Swal.fire({
-                                    icon: "error",
-                                    title: "Error generando post",
-                                    text: data.message
-                                });
-                            }
-
-                        } catch (err) {
-                            Swal.fire({
-                                icon: "error",
-                                title: "Error de conexión",
-                                text: "El servidor no respondió."
-                            });
-                        }
-                    }
-
-
-                    // =====================================================
-                    // BLOQUE 28 — AUDITORÍA INTERNA
-                    // =====================================================
-                    function auditLog(actionName, details = {}) {
-                        console.log("📌 Audit:", actionName, details);
-                    }
-
-                    document.addEventListener("click", (e) => {
-                        if (e.target.closest(".action-button")) {
-                            auditLog("click_action", {
-                                button: e.target.innerText.trim()
-                            });
-                        }
-                    });
-
-
-                    // =====================================================
-                    // BLOQUE 29 — MODO OFFLINE
-                    // =====================================================
-                    async function checkOfflineMode() {
-                        try {
-                            const res = await fetch(`${WEBHOOK_URL}?ping=1`);
-                            const data = await res.json();
-
-                            if (data.status !== "ok") throw new Error();
-
-                            setOffline(false); // Integrado con Bloque 14
-                        } catch (err) {
-                            setOffline(true); // Integrado con Bloque 14
-                            console.warn("⚠ Modo Offline Activado");
-                        }
-                    }
-                    setInterval(checkOfflineMode, 12000);
-
-
-                    // =====================================================
-                    // BLOQUE 30 — INTEGRACIÓN FINAL DEL PANEL
-                    // =====================================================
-                    function finishPanelIntegration() {
-                        console.log("🎉 Panel Atelier Engine completado y funcional.");
-                        auditLog("panel_ready");
-                    }
-
-                    finishPanelIntegration();
-
-                </script>
-
-                <footer>
-                    <p>Accede al panel en <a href="https://n8npanelatelier.netlify.app" target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Ir a n8n Panel Atelier en nueva pestaña">n8npanelatelier.netlify.app</a></p>
-                </footer>
-            </body>
+                container.appendChild(el);
+            });
+        }
+
+    </script>
+
+    <footer>
+        <p>Accede al workflow en <a href="https://n8n.aureliocontrerasatelier.com/workflow/M5SBRoQGspE0CVxx"
+                target="_blank" rel="noopener noreferrer">n8n.aureliocontrerasatelier.com</a></p>
+    </footer>
+</body>
 
 </html>
