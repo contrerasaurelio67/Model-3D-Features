@@ -7,8 +7,7 @@
     <title>Atelier Engine – Panel Administrativo</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
-    <!-- SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Custom Modal System (Apple-Style) -->
 
     <!-- Estilos del Panel -->
     <style>
@@ -469,6 +468,10 @@
                 align-items: stretch;
             }
 
+            .header-actions {
+                justify-content: space-between;
+            }
+
             .header-actions button {
                 flex: 1;
             }
@@ -479,166 +482,461 @@
         }
 
         /* ──────────────────────────────── */
-        /*        APPLE-STYLE MODALS        */
+        /*    CUSTOM MODAL SYSTEM (APPLE)   */
         /* ──────────────────────────────── */
-        .modal-overlay {
+
+        /* Modal Overlay */
+        .atelier-modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            z-index: 1000;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            z-index: 9999;
             opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .modal-overlay.active {
+        .atelier-modal-overlay.active {
             opacity: 1;
-            visibility: visible;
+            pointer-events: all;
         }
 
-        .apple-modal {
-            background: rgba(30, 41, 59, 0.75);
-            /* Dark semi-transparent */
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+        /* Modal Container */
+        .atelier-modal {
+            background: var(--card-bg);
+            backdrop-filter: blur(40px);
+            border: 1px solid var(--card-border);
             border-radius: 24px;
             padding: 32px;
             width: 90%;
-            max-width: 480px;
-            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.25);
-            transform: scale(0.95);
+            max-width: 520px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow:
+                0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+            transform: scale(0.9) translateY(20px);
             opacity: 0;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            /* Apple-like spring */
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .modal-overlay.active .apple-modal {
-            transform: scale(1);
+        .atelier-modal-overlay.active .atelier-modal {
+            transform: scale(1) translateY(0);
             opacity: 1;
         }
 
-        .apple-modal h3 {
-            font-size: 20px;
-            font-weight: 600;
-            margin: 0;
-            color: var(--text);
+        /* Modal Header */
+        .atelier-modal-header {
+            margin-bottom: 24px;
             text-align: center;
         }
 
-        .apple-modal p.desc {
-            font-size: 15px;
+        .atelier-modal-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .atelier-modal-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .atelier-modal-subtitle {
+            font-size: 14px;
             color: var(--text-muted);
-            text-align: center;
             line-height: 1.5;
-            margin-top: -10px;
         }
 
-        .modal-input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+        /* Modal Body */
+        .atelier-modal-body {
+            margin-bottom: 24px;
         }
 
-        .modal-input-group label {
+        /* Form Elements */
+        .atelier-form-group {
+            margin-bottom: 20px;
+        }
+
+        .atelier-form-label {
+            display: block;
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 500;
             color: var(--text-muted);
-            margin-left: 4px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .modal-input {
+        .atelier-input,
+        .atelier-textarea,
+        .atelier-select {
             width: 100%;
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 16px;
+            background: var(--dark);
+            border: 1px solid var(--input-border);
             border-radius: 12px;
-            padding: 14px 16px;
             color: var(--text);
-            font-size: 16px;
-            transition: all 0.2s;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.2s ease;
         }
 
-        .modal-input:focus {
+        .atelier-input:focus,
+        .atelier-textarea:focus,
+        .atelier-select:focus {
             outline: none;
-            background: rgba(15, 23, 42, 0.9);
             border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
         }
 
-        .modal-actions {
+        .atelier-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Tags Input */
+        .atelier-tags-input {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 8px;
+            background: var(--dark);
+            border: 1px solid var(--input-border);
+            border-radius: 12px;
+            min-height: 48px;
+        }
+
+        .atelier-tag {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .atelier-tag-remove {
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .atelier-tag-remove:hover {
+            opacity: 1;
+        }
+
+        .atelier-tags-input input {
+            flex: 1;
+            min-width: 120px;
+            border: none;
+            background: transparent;
+            color: var(--text);
+            font-size: 14px;
+            outline: none;
+        }
+
+        /* File Upload */
+        .atelier-file-upload {
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .atelier-file-upload:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .atelier-file-upload.dragover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .atelier-file-preview {
+            margin-top: 16px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .atelier-file-preview img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Modal Actions */
+        .atelier-modal-actions {
             display: flex;
             gap: 12px;
-            margin-top: 8px;
+            margin-top: 24px;
         }
 
-        .btn-modal {
-            padding: 14px;
-            border-radius: 14px;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: transform 0.2s;
-            border: none;
+        .atelier-btn {
             flex: 1;
-        }
-
-        .btn-cancel {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text);
-        }
-
-        .btn-confirm {
-            background: var(--action-btn-bg);
-            color: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn-confirm:hover {
-            background: var(--primary);
-        }
-
-        .modal-tip {
-            background: rgba(99, 102, 241, 0.1);
-            border: 1px solid rgba(99, 102, 241, 0.2);
+            padding: 14px 24px;
+            border: none;
             border-radius: 12px;
-            padding: 12px;
-            font-size: 13px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .atelier-btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .atelier-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .atelier-btn-secondary {
+            background: var(--dark-lighter);
             color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .atelier-btn-secondary:hover {
+            background: var(--dark-light);
+        }
+
+        .atelier-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Loading Spinner */
+        .atelier-loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Success/Error States */
+        .atelier-modal.success .atelier-modal-icon {
+            color: var(--success);
+        }
+
+        .atelier-modal.error .atelier-modal-icon {
+            color: var(--danger);
+        }
+
+        .atelier-modal.warning .atelier-modal-icon {
+            color: var(--warning);
+        }
+
+        /* Progress Bar */
+        .atelier-progress {
+            width: 100%;
+            height: 6px;
+            background: var(--dark-lighter);
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 16px 0;
+        }
+
+        .atelier-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+            border-radius: 3px;
+        }
+
+        /* Metrics Display */
+        .atelier-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .atelier-metric {
+            background: var(--dark-lighter);
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .atelier-metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .atelier-metric-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Tooltip */
+        .atelier-tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .atelier-tooltip-text {
+            visibility: hidden;
+            background: var(--dark-light);
+            color: var(--text);
+            text-align: center;
+            padding: 8px 12px;
+            border-radius: 8px;
+            position: absolute;
+            z-index: 10000;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 13px;
+            white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .atelier-tooltip:hover .atelier-tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* List Items */
+        .atelier-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .atelier-list-item {
+            background: var(--dark-lighter);
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 8px;
             display: flex;
-            align-items: start;
-            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
         }
 
-        .modal-tip span {
-            font-size: 16px;
+        .atelier-list-item:hover {
+            background: var(--dark-light);
+            transform: translateX(4px);
         }
 
-        /* Light mode adjustments for modals */
-        body.light .apple-modal {
-            background: rgba(255, 255, 255, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+        .atelier-list-item-title {
+            font-weight: 600;
+            color: var(--text);
         }
 
-        body.light .modal-input {
-            background: rgba(255, 255, 255, 0.8);
-            border-color: #cbd5e1;
-            color: var(--dark);
+        .atelier-list-item-meta {
+            font-size: 13px;
+            color: var(--text-muted);
         }
 
-        body.light .btn-cancel {
-            background: rgba(0, 0, 0, 0.05);
-            color: var(--dark);
+        .atelier-list-item-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .atelier-icon-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .atelier-icon-btn:hover {
+            background: var(--dark);
+            color: var(--text);
+        }
+
+        /* Status Badge */
+        .atelier-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .atelier-badge.success {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+
+        .atelier-badge.error {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        .atelier-badge.warning {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+        }
+
+        .atelier-badge.info {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .atelier-modal {
+                width: 95%;
+                max-height: 90vh;
+                padding: 24px;
+            }
+
+            .atelier-modal-title {
+                font-size: 20px;
+            }
+
+            .atelier-modal-actions {
+                flex-direction: column;
+            }
+
+            .atelier-btn {
+                width: 100%;
+            }
+
+            .atelier-metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
@@ -764,9 +1062,6 @@
 
     </div><!-- dashboardContent -->
 
-    <!-- MODAL CONTAINER -->
-    <div id="modalContainer"></div>
-
     <footer>
         <p>Accede al workflow en <a href="https://n8n.aureliocontrerasatelier.com/workflow/M5SBRoQGspE0CVxx"
                 target="_blank" rel="noopener noreferrer">n8n.aureliocontrerasatelier.com</a></p>
@@ -779,110 +1074,17 @@
          * Arquitectura Modular para Gestión Escalable
          */
 
-        // --- CUSTOM MODAL MANAGER (UI) ---
-        class ModalManager {
-            constructor() {
-                this.container = document.getElementById('modalContainer');
-                this.activeResolve = null;
-            }
-
-            createInputModal({ title, subtitle, inputs, confirmText = "Continuar", tip }) {
-                return new Promise((resolve) => {
-                    this.activeResolve = resolve;
-
-                    // Generate Inputs HTML
-                    const inputsHtml = inputs.map(input => `
-                        <div class="modal-input-group">
-                            ${input.label ? `<label>${input.label}</label>` : ''}
-                            ${input.type === 'textarea'
-                            ? `<textarea id="${input.id}" class="modal-input" placeholder="${input.placeholder}" rows="3"></textarea>`
-                            : `<input type="${input.type || 'text'}" id="${input.id}" class="modal-input" placeholder="${input.placeholder}" ${input.accept ? `accept="${input.accept}"` : ''}>`
-                        }
-                        </div>
-                    `).join('');
-
-                    // Tip HTML
-                    const tipHtml = tip ? `
-                        <div class="modal-tip">
-                            <span>💡</span>
-                            <p>${tip}</p>
-                        </div>
-                    ` : '';
-
-                    // Modal Structure
-                    const modalHtml = `
-                        <div class="modal-overlay active" id="currentOverlay">
-                            <div class="apple-modal">
-                                <h3>${title}</h3>
-                                ${subtitle ? `<p class="desc">${subtitle}</p>` : ''}
-                                
-                                <div class="modal-body" style="display:flex; flex-direction:column; gap:16px;">
-                                    ${inputsHtml}
-                                    ${tipHtml}
-                                </div>
-
-                                <div class="modal-actions">
-                                    <button class="btn-modal btn-cancel" onclick="panel.modals.close(null)">Cancelar</button>
-                                    <button class="btn-modal btn-confirm" onclick="panel.modals.confirm()">${confirmText}</button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-
-                    this.container.innerHTML = modalHtml;
-
-                    // Focus first input
-                    const firstInput = this.container.querySelector('input, textarea');
-                    if (firstInput) firstInput.focus();
-
-                    // Event Listeners (Enter/Esc)
-                    const overlay = document.getElementById('currentOverlay');
-                    const handleKey = (e) => {
-                        if (e.key === 'Escape') this.close(null);
-                        if (e.key === 'Enter' && !e.shiftKey && e.target.tagName !== 'TEXTAREA') this.confirm();
-                    };
-
-                    document.addEventListener('keydown', handleKey);
-                    this.currentKeyHandler = handleKey;
-                });
-            }
-
-            confirm() {
-                const result = {};
-                const inputs = this.container.querySelectorAll('input, textarea');
-                inputs.forEach(input => {
-                    if (input.type === 'file') {
-                        result[input.id] = input.files[0];
-                    } else {
-                        result[input.id] = input.value;
-                    }
-                });
-                this.close(result);
-            }
-
-            close(data) {
-                const overlay = document.getElementById('currentOverlay');
-                if (overlay) {
-                    overlay.classList.remove('active');
-                    setTimeout(() => {
-                        this.container.innerHTML = '';
-                        if (this.currentKeyHandler) document.removeEventListener('keydown', this.currentKeyHandler);
-                        if (this.activeResolve) this.activeResolve(data);
-                    }, 300);
-                }
-            }
-        }
-
         class AtelierPanel {
             constructor() {
+                // CONFIGURACIÓN CENTRAL
                 this.config = {
                     webhookUrl: "https://n8n.aureliocontrerasatelier.com/webhook/panel-action",
-                    headers: { "Content-Type": "application/json" }
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
                 };
-                this.user = JSON.parse(sessionStorage.getItem('atelier_session'))?.username || null;
 
-                // Initialize Managers
-                this.modals = new ModalManager();
+                this.user = JSON.parse(sessionStorage.getItem('atelier_session'))?.username || null;
 
                 // MÓDULOS DEL SISTEMA
                 this.modules = {
@@ -1060,74 +1262,90 @@
         class ContentModule extends BaseModule {
 
             async generatePost() {
-                const data = await this.panel.modals.createInputModal({
-                    title: '🧠 Generar Contenido',
-                    subtitle: 'Define el foco del artículo para la IA',
-                    confirmText: 'Generar Post',
-                    tip: 'Usa palabras clave específicas para mejorar el SEO.',
-                    inputs: [
-                        { id: 'topic', label: 'Tema Principal', placeholder: 'Ej. Diseño Sostenible' },
-                        { id: 'keywords', label: 'Keywords (separadas por comas)', placeholder: 'sustentabilidad, moda, futuro' }
-                    ]
+                const { value: formValues } = await Swal.fire({
+                    title: '🧠 Generar Contenido IA',
+                    html: `
+                        <p style="color:#aaa; font-size:14px; margin-bottom:10px;">Define los parámetros para el motor generativo</p>
+                        <input id="swal-topic" class="swal2-input" placeholder="Tema principal (ej. Diseño Minimalista)">
+                        <input id="swal-keywords" class="swal2-input" placeholder="Keywords (sep. por comas)">
+                    `,
+                    focusConfirm: false,
+                    showCancelButton: true,
+                    confirmButtonText: 'Generar',
+                    background: '#1e293b',
+                    color: '#fff',
+                    preConfirm: () => {
+                        const topic = document.getElementById('swal-topic').value;
+                        const keywords = document.getElementById('swal-keywords').value;
+                        if (!topic) Swal.showValidationMessage('El tema es obligatorio');
+                        return { topic, keywords: keywords.split(',').map(k => k.trim()) };
+                    }
                 });
 
-                if (data && data.topic) {
-                    this.panel.sendRequest('generatePost', {
-                        topic: data.topic,
-                        keywords: data.keywords.split(',').map(k => k.trim())
-                    });
+                if (formValues) {
+                    this.panel.sendRequest('generatePost', formValues);
                 }
             }
 
             async schedulePost() {
-                const data = await this.panel.modals.createInputModal({
+                const { value: date } = await Swal.fire({
                     title: '📅 Programar Publicación',
-                    subtitle: 'Selecciona el momento ideal',
-                    confirmText: 'Agendar',
-                    inputs: [
-                        { id: 'scheduledTime', type: 'datetime-local', label: 'Fecha y Hora' }
-                    ]
+                    html: '<input type="datetime-local" id="swal-date" class="swal2-input">',
+                    confirmButtonText: 'Agendar',
+                    showCancelButton: true,
+                    background: '#1e293b',
+                    color: '#fff',
+                    preConfirm: () => {
+                        const val = document.getElementById('swal-date').value;
+                        if (!val) Swal.showValidationMessage('Selecciona una fecha válida');
+                        return val;
+                    }
                 });
 
-                if (data && data.scheduledTime) {
-                    this.panel.sendRequest('schedulePost', { scheduledTime: data.scheduledTime });
+                if (date) {
+                    this.panel.sendRequest('schedulePost', { scheduledTime: date });
                 }
             }
 
             async generateFromImage() {
-                const data = await this.panel.modals.createInputModal({
+                const { value: file } = await Swal.fire({
                     title: '🧬 Post desde Imagen',
-                    subtitle: 'Sube tu visual para análisis',
-                    confirmText: 'Analizar',
-                    inputs: [
-                        { id: 'imageFile', type: 'file', label: 'Imagen de referencia', accept: 'image/*' }
-                    ]
+                    input: 'file',
+                    inputAttributes: {
+                        'accept': 'image/*',
+                        'aria-label': 'Sube tu imagen para analizar'
+                    },
+                    text: 'La IA analizará la imagen y creará el copy perfecto',
+                    background: '#1e293b',
+                    color: '#fff',
+                    showCancelButton: true
                 });
 
-                if (data && data.imageFile) {
+                if (file) {
                     const reader = new FileReader();
                     reader.onload = (e) => {
                         this.panel.sendRequest('generateFromImage', {
-                            name: data.imageFile.name,
-                            image: e.target.result
+                            imageName: file.name,
+                            imageBase64: e.target.result // Send Base64 directly
                         });
                     };
-                    reader.readAsDataURL(data.imageFile);
+                    reader.readAsDataURL(file);
                 }
             }
 
             async pinPost() {
-                const data = await this.panel.modals.createInputModal({
+                const { value: postId } = await Swal.fire({
                     title: '🧷 Fijar Publicación',
-                    subtitle: 'Ingresa el ID del post a destacar',
-                    confirmText: 'Fijar',
-                    inputs: [
-                        { id: 'postId', placeholder: 'ID del Post (ej. 104)' }
-                    ]
+                    input: 'text',
+                    inputLabel: 'ID o Título del Post',
+                    inputPlaceholder: 'Ej. post_12345',
+                    showCancelButton: true,
+                    background: '#1e293b',
+                    color: '#fff'
                 });
 
-                if (data && data.postId) {
-                    this.panel.sendRequest('pinPost', { reference: data.postId });
+                if (postId) {
+                    this.panel.sendRequest('pinPost', { reference: postId });
                 }
             }
         }
