@@ -4,9 +4,24 @@
    - Carpeta local: C:\Users\arcom\Panel-n8n\index.html
 
 2. Sube el archivo a tu VM con este comando en PowerShell:
-   scp -i $HOME\.ssh\google_compute_engine "C:\Users\arcom\Panel-n8n\index.html" contrerasaurelio67@34.148.6.253:/home/contrerasaurelio67/
+scp -i $HOME\.ssh\google_compute_engine "C:\Users\arcom\Panel-n8n\index.html" contrerasaurelio67@34.148.6.253:/home/contrerasaurelio67/Panel-n8n/index.html
 
-3. El script deploy.sh en la VM se encarga de:
+2.1 Conectate por SSH desde Powershell: ssh -i $HOME\.ssh\google_compute_engine contrerasaurelio67@34.148.6.253
+
+2.2 Si quieres hacerlo manualmente y no esperar los 30 minutos ejecuta este comando en la VM ya conectado: /home/contrerasaurelio67/deploy.sh >> /home/contrerasaurelio67/deploy.log 2>&1
+
+Luego verifica el log
+
+Te debe devolver un mensaje: 
+
+index.html                                                                            100%   42KB 305.8KB/s   00:00
+🚀 Comprobando cambios en index.html...
+🔄 Cambios detectados. Actualizando...
+🎉 index.html actualizado en Nginx.
+
+Si te sale esto ya el archivo se actualizo automáticamente.
+
+3. Si decides esperar los 30 min. el script deploy.sh en la VM se encargará de:
    - Detectar si hay cambios en index.html.
    - Actualizar automáticamente en /var/www/site/index.html.
    - Ajustar permisos correctos para Nginx.
@@ -24,4 +39,6 @@
 
 # Conclusión:
 Solo necesitas editar tu HTML local y subirlo con scp.
-El resto lo hace cron y deploy.sh automáticamente.
+El resto lo hace cron y deploy.sh automáticamente o también existe la opción de subirlo manualmente.
+
+Espero que esta guía te sirva de ayuda.
