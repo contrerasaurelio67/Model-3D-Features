@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Control Atelier</title>
-    <meta name="description" content="Panel administrativo para gestión de publicaciones y sistema.">
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,63 +13,34 @@
     <style>
         /* 
          * =========================================
-         * 1. DESIGN SYSTEM & VARIABLES
+         * 1. DESIGN SYSTEM
          * =========================================
          */
         :root {
-            --color-bg-light: #F5F5F7;
-            --color-surface-light: #FFFFFF;
-            --color-text-primary-light: #1D1D1F;
-            --color-text-secondary-light: #86868B;
-            --color-border-light: #D2D2D7;
-
-            --color-bg-dark: #000000;
-            --color-surface-dark: #1C1C1E;
-            --color-text-primary-dark: #F5F5F7;
-            --color-text-secondary-dark: #86868B;
-            --color-border-dark: #38383A;
-
+            --bg-body: #F5F5F7;
+            --bg-card: #FFFFFF;
+            --text-primary: #1D1D1F;
+            --text-secondary: #86868B;
+            --border-color: #D2D2D7;
             --color-accent: #0071E3;
             --color-accent-hover: #0077ED;
             --color-danger: #FF3B30;
             --color-success: #34C759;
             --color-warning: #FF9500;
-
-            --radius-sm: 8px;
             --radius-md: 12px;
             --radius-lg: 18px;
-            --radius-xl: 24px;
-
             --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
             --shadow-hover: 0 14px 24px -6px rgba(0, 0, 0, 0.12);
-
-            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            --transition-fast: 0.2s cubic-bezier(0.25, 1, 0.5, 1);
-            --transition-smooth: 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-body: var(--color-bg-dark);
-                --bg-card: var(--color-surface-dark);
-                --text-primary: var(--color-text-primary-dark);
-                --text-secondary: var(--color-text-secondary-dark);
-                --border-color: var(--color-border-dark);
-                --shadow-color: rgba(0, 0, 0, 0.5);
-            }
-        }
-
-        @media (prefers-color-scheme: light) {
-            :root {
-                --bg-body: var(--color-bg-light);
-                --bg-card: var(--color-surface-light);
-                --text-primary: var(--color-text-primary-light);
-                --text-secondary: var(--color-text-secondary-light);
-                --border-color: var(--color-border-light);
-                --shadow-color: rgba(0, 0, 0, 0.05);
-            }
+        body.dark-mode {
+            --bg-body: #000000;
+            --bg-card: #1C1C1E;
+            --text-primary: #F5F5F7;
+            --text-secondary: #86868B;
+            --border-color: #38383A;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+            --shadow-hover: 0 14px 24px -6px rgba(0, 0, 0, 0.6);
         }
 
         * {
@@ -80,17 +50,15 @@
         }
 
         body {
-            font-family: var(--font-family);
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg-body);
             color: var(--text-primary);
             line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.3s, color 0.3s;
             display: flex;
             justify-content: center;
             min-height: 100vh;
             padding: 2rem;
-            position: relative;
         }
 
         button,
@@ -102,27 +70,16 @@
             outline: none;
         }
 
-        h1,
-        h2,
-        h3 {
-            font-weight: 600;
-            letter-spacing: -0.02em;
-        }
-
-        /* LOGIN SCREEN */
+        /* LOGIN */
         .login-screen {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            inset: 0;
             background: var(--bg-body);
             z-index: 5000;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.5s;
         }
 
         .login-screen.hidden {
@@ -133,35 +90,30 @@
         .login-card {
             background: var(--bg-card);
             padding: 2.5rem;
-            border-radius: var(--radius-xl);
+            border-radius: var(--radius-lg);
             box-shadow: var(--shadow-hover);
             width: 100%;
-            max-width: 400px;
+            max-width: 360px;
             text-align: center;
         }
 
-        .login-logo {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        /* MAIN APP */
+        /* APP LAYOUT */
         .app-container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1280px;
             display: grid;
             grid-template-columns: 1fr 340px;
             gap: 2rem;
             align-items: start;
             opacity: 0;
-            transition: opacity 0.5s ease 0.2s;
+            transition: opacity 0.5s 0.2s;
         }
 
         .app-container.visible {
             opacity: 1;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 960px) {
             .app-container {
                 grid-template-columns: 1fr;
             }
@@ -172,216 +124,187 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
-        .header-badges {
+        .header-actions {
             display: flex;
-            gap: 0.75rem;
+            gap: 0.8rem;
             align-items: center;
         }
 
-        .status-badge {
-            font-size: 0.85rem;
-            padding: 0.25rem 0.75rem;
-            border-radius: 99px;
+        .icon-btn {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 500;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            background: var(--color-text-secondary);
-        }
-
-        .status-dot.online {
-            background: var(--color-success);
-            box-shadow: 0 0 8px var(--color-success);
-        }
-
-        .status-dot.offline {
-            background: var(--text-secondary);
-        }
-
-        .status-dot.warning {
-            background: var(--color-warning);
-        }
-
-        .btn-logout {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 0.5rem 1rem;
-            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            font-size: 0.9rem;
-            color: var(--color-danger);
-            transition: background 0.2s;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            transition: 0.2s;
         }
 
-        .btn-logout:hover {
+        .icon-btn:hover {
+            transform: scale(1.05);
             background: var(--bg-body);
         }
 
-        /* SECTIONS & GRID */
+        /* SEARCH BAR */
+        .search-bar {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            padding-left: 3rem;
+            background: var(--bg-card);
+            border-radius: 99px;
+            border: 1px solid transparent;
+            color: var(--text-primary);
+            font-size: 1rem;
+            box-shadow: var(--shadow-sm);
+            transition: 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            pointer-events: none;
+        }
+
+        /* GRID & CARDS */
         .section-title {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            font-weight: 600;
             text-transform: uppercase;
             color: var(--text-secondary);
-            margin: 2rem 0 1rem 0;
+            margin: 2.5rem 0 1rem 0;
             letter-spacing: 0.05em;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.25rem;
         }
 
         .card {
             background: var(--bg-card);
-            padding: 1.5rem;
+            padding: 1.25rem;
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-sm);
             cursor: pointer;
-            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+            transition: 0.2s;
             border: 1px solid transparent;
             position: relative;
-            overflow: hidden;
             text-align: left;
         }
 
         .card:hover {
-            transform: scale(1.02);
+            transform: translateY(-3px);
             box-shadow: var(--shadow-hover);
             border-color: var(--border-color);
         }
 
-        .card:focus-visible {
-            outline: 2px solid var(--color-accent);
-            outline-offset: 4px;
+        .card:active {
+            transform: scale(0.98);
         }
 
         .card-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
             display: block;
         }
 
         .card-title {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
             color: var(--text-primary);
         }
 
         .card-desc {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-secondary);
+            line-height: 1.3;
         }
 
         /* SIDEBAR */
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
         .panel-box {
             background: var(--bg-card);
             border-radius: var(--radius-lg);
             padding: 1.5rem;
             box-shadow: var(--shadow-sm);
+            margin-bottom: 1.5rem;
         }
 
-        .panel-box h3 {
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            letter-spacing: 0.05em;
-        }
-
-        .preview-content {
-            min-height: 100px;
+        .preview-box {
+            min-height: 120px;
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: var(--text-secondary);
             font-size: 0.9rem;
-            border: 2px dashed var(--border-color);
-            border-radius: var(--radius-md);
-            margin-top: 0.5rem;
-            padding: 1rem;
-            word-break: break-word;
         }
 
-        .preview-content.has-data {
-            display: block;
-            text-align: left;
+        .preview-box.active {
             border: none;
             background: var(--bg-body);
             color: var(--text-primary);
-        }
-
-        .history-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
+            display: block;
+            text-align: left;
         }
 
         .history-item {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding-bottom: 0.75rem;
+            padding: 0.8rem 0;
             border-bottom: 1px solid var(--border-color);
             font-size: 0.9rem;
         }
 
         .history-item:last-child {
             border-bottom: none;
-            padding-bottom: 0;
         }
 
-        .history-meta {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .history-action {
-            font-weight: 500;
-        }
-
-        .history-time {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
+        .history-status {
+            font-size: 1rem;
         }
 
         /* MODAL */
         .modal-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            inset: 0;
             background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
             display: flex;
             align-items: center;
             justify-content: center;
             opacity: 0;
             visibility: hidden;
-            transition: opacity var(--transition-fast), visibility var(--transition-fast);
-            z-index: 1000;
+            transition: 0.3s;
         }
 
         .modal-overlay.open {
@@ -392,70 +315,30 @@
         .modal {
             background: var(--bg-card);
             width: 90%;
-            max-width: 480px;
+            max-width: 450px;
             border-radius: var(--radius-lg);
             padding: 2rem;
+            transform: scale(0.95);
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: var(--shadow-hover);
-            transform: translateY(20px) scale(0.95);
-            transition: transform var(--transition-smooth);
-            position: relative;
         }
 
         .modal-overlay.open .modal {
-            transform: translateY(0) scale(1);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .close-btn {
-            background: transparent;
-            color: var(--text-secondary);
-            font-size: 1.5rem;
-            cursor: pointer;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .close-btn:hover {
-            background: var(--bg-body);
-            color: var(--text-primary);
-        }
-
-        .form-group {
-            margin-bottom: 1.25rem;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            font-size: 0.9rem;
-            color: var(--text-primary);
+            transform: scale(1);
         }
 
         .form-input {
             width: 100%;
-            padding: 0.75rem 1rem;
-            border-radius: var(--radius-md);
+            padding: 0.8rem;
+            border-radius: 8px;
             border: 1px solid var(--border-color);
             background: var(--bg-body);
             color: var(--text-primary);
-            font-size: 1rem;
-            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+            margin-top: 0.5rem;
         }
 
         .form-input:focus {
             border-color: var(--color-accent);
-            box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.2);
         }
 
         .btn-primary {
@@ -464,523 +347,438 @@
             background: var(--color-accent);
             color: white;
             font-weight: 600;
-            border-radius: var(--radius-md);
+            border-radius: 12px;
             cursor: pointer;
+            margin-top: 1.5rem;
             display: flex;
-            align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            transition: background-color 0.2s;
+            transition: 0.2s;
         }
 
         .btn-primary:hover {
             background: var(--color-accent-hover);
         }
 
-        .btn-primary:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .spinner {
-            width: 20px;
-            height: 20px;
-            border: 2.5px solid rgba(255, 255, 255, 0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* TOASTS */
-        #toast-container {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            z-index: 2000;
-        }
-
+        /* TOAST */
         .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
             background: var(--bg-card);
-            border-left: 4px solid var(--color-accent);
-            padding: 1rem 1.25rem;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-lg);
-            min-width: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            animation: slideIn 0.3s ease forwards;
             color: var(--text-primary);
-            font-size: 0.9rem;
-        }
-
-        .toast.success {
-            border-left-color: var(--color-success);
-        }
-
-        .toast.error {
-            border-left-color: var(--color-danger);
-        }
-
-        .toast.warning {
-            border-left-color: var(--color-warning);
-        }
-
-        .toast.hiding {
-            animation: fadeOut 0.3s ease forwards;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-hover);
+            border-left: 4px solid var(--color-accent);
+            animation: slideIn 0.3s;
+            z-index: 3000;
         }
 
         @keyframes slideIn {
             from {
-                transform: translateX(100%);
-                opacity: 0;
+                transform: translateX(100%)
             }
 
             to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeOut {
-            to {
-                opacity: 0;
-                transform: translateY(10px);
+                transform: translateX(0)
             }
         }
     </style>
 </head>
 
-<body>
+<body class=""> <!-- Theme class injected here -->
 
-    <!-- PANTALLA DE ACCESO -->
+    <!-- LOGIN -->
     <div id="loginScreen" class="login-screen">
         <div class="login-card">
-            <div class="login-logo">🔒</div>
-            <h2 style="margin-bottom: 0.5rem;">Atelier Access</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 2rem;">Ingresa tus credenciales</p>
+            <div style="font-size:3rem;margin-bottom:1rem">🔒</div>
+            <h2 style="margin-bottom:0.5rem">Atelier Access</h2>
+            <p style="color:var(--text-secondary);margin-bottom:1.5rem">Panel Administrativo</p>
             <form id="loginForm">
-                <div class="form-group">
-                    <input type="text" id="username" class="form-input" placeholder="Usuario" required>
-                </div>
-                <div class="form-group">
-                    <input type="password" id="password" class="form-input" placeholder="Contraseña" required>
-                </div>
-                <button type="submit" class="btn-primary">Ingresar</button>
+                <input type="text" id="u" class="form-input" placeholder="Usuario" style="margin-bottom:1rem" required>
+                <input type="password" id="p" class="form-input" placeholder="Contraseña" required>
+                <button type="submit" class="btn-primary">Entrar</button>
             </form>
         </div>
     </div>
 
-    <!-- APP CONTAINER -->
-    <div id="appContainer" class="app-container">
-        <!-- Main Panel -->
+    <!-- APP -->
+    <div id="app" class="app-container">
         <div class="main-panel">
             <header>
                 <div>
-                    <h1 style="font-size: 1.8rem;" data-i18n="panelTitle">Panel de Control</h1>
-                    <p style="color: var(--text-secondary);" data-i18n="panelSubtitle">Aurelio Contreras Atelier</p>
+                    <h1 style="font-size:1.5rem;font-weight:700">Panel de Control</h1>
+                    <p style="color:var(--text-secondary);font-size:0.9rem">Aurelio Contreras Atelier</p>
                 </div>
-                <div class="header-badges">
-                    <div class="status-badge" id="connStatus">
-                        <span class="status-dot"></span>
-                        <span id="connText">Verificando...</span>
-                    </div>
-                    <button class="btn-logout" id="logoutBtn" title="Cerrar Sesión">⏻</button>
+                <div class="header-actions">
+                    <div id="statusDot"
+                        style="width:10px;height:10px;border-radius:50%;background:var(--color-success);"
+                        title="Estado"></div>
+                    <button class="icon-btn" id="themeBtn" title="Cambiar Tema">🌙</button>
+                    <button class="icon-btn" id="logoutBtn" title="Salir">⏻</button>
                 </div>
             </header>
 
-            <div id="actionsContainer">
-                <!-- ACCIONES AGRUPADAS SE RENDERIZAN AQUI -->
+            <!-- SEARCH SPOTLIGHT -->
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" id="searchInput"
+                    placeholder="Buscar acción (ej. programar, logs, ia)...">
             </div>
 
-            <!-- Telemetry Stats -->
-            <div id="telemetryStats" class="panel-box"
-                style="display:none; margin-top:2rem; font-size:0.8rem; color:var(--text-secondary);">
-                <h3 data-i18n="statsTitle">Métricas</h3>
-                <div id="statsContent"></div>
-            </div>
+            <!-- ACTION GRID -->
+            <div id="actionsContainer"></div>
         </div>
 
-        <!-- Sidebar -->
+        <!-- SIDEBAR -->
         <aside class="sidebar">
             <div class="panel-box">
-                <h3 data-i18n="previewTitle">Vista Previa</h3>
-                <div id="previewArea" class="preview-content" data-i18n="previewPlaceholder">...</div>
+                <h3 style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:1rem;text-transform:uppercase;">
+                    Vista Previa</h3>
+                <div id="previewArea" class="preview-box">Resultados aparecerán aquí</div>
             </div>
 
             <div class="panel-box">
-                <h3 data-i18n="historyTitle">Últimas Acciones</h3>
-                <ul class="history-list" id="historyList"></ul>
+                <h3 style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:1rem;text-transform:uppercase;">
+                    Historial</h3>
+                <div id="historyList"></div>
             </div>
         </aside>
     </div>
 
-    <!-- Modal -->
-    <div class="modal-overlay" id="modalOverlay">
+    <!-- MODAL -->
+    <div id="modalOverlay" class="modal-overlay">
         <div class="modal">
-            <div class="modal-header">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
                 <h2 id="modalTitle">Acción</h2>
-                <button class="close-btn" id="modalClose">&times;</button>
+                <button id="modalClose"
+                    style="background:none;font-size:1.5rem;cursor:pointer;color:var(--text-secondary)">&times;</button>
             </div>
-            <form id="actionForm" novalidate>
-                <div id="modalBody"></div>
-                <div style="margin-top: 2rem;">
-                    <button type="submit" class="btn-primary" id="modalSubmitBtn">
-                        <span class="btn-text" data-i18n="btnExecute">Ejecutar</span>
-                        <div class="spinner" style="display: none;"></div>
-                    </button>
-                    <div id="formErrors"
-                        style="color: var(--color-danger); font-size: 0.85rem; margin-top: 0.5rem; min-height: 1.2em;">
-                    </div>
-                </div>
+            <form id="actionForm">
+                <div id="modalFields"></div>
+                <button type="submit" class="btn-primary" id="modalSubmit">
+                    <span>Ejecutar</span> <span class="spinner" style="display:none">↻</span>
+                </button>
             </form>
         </div>
     </div>
 
-    <!-- Toasts -->
-    <div id="toast-container"></div>
+    <div id="toasts"></div>
 
     <script>
-        /** ----- CONFIG & CONSTANTS ----- */
-        const APP_VERSION = '1.1.0';
-        const CREDS = { u: 'econtreras', p: 'Ec1330' }; // En producción usar JWT/Backend
-
-        const DEFAULT_FLAGS = { enableMockTester: false, enableTelemetry: true };
-        const CONFIG = {
-            ENV: { baseURL: 'https://n8n.aureliocontrerasatelier.com/webhook/panel-action', throttleMs: 3000 },
-            FLAGS: Object.assign(DEFAULT_FLAGS, JSON.parse(localStorage.getItem('featureFlags') || '{}'))
-        };
-
-        /** ----- I18N ----- */
-        const DICTIONARY = {
-            es: {
-                panelTitle: 'Panel de Control', panelSubtitle: 'Aurelio Contreras Atelier',
-                statusOnline: 'En Línea', statusOffline: 'Offline', statusMock: 'Modo Test',
-                previewTitle: 'Vista Previa', previewPlaceholder: 'Selecciona una acción...',
-                historyTitle: 'Historial', historyEmpty: 'Sin actividad',
-                btnExecute: 'Ejecutar', btnProcessing: 'Procesando...',
-                catContent: 'Gestión de Contenido', catSystem: 'Sistema y Operaciones', catAudit: 'Auditoría y Control'
-            },
-            en: {
-                panelTitle: 'Control Panel', panelSubtitle: 'Aurelio Contreras Atelier',
-                statusOnline: 'Online', statusOffline: 'Offline', statusMock: 'Test Mode',
-                previewTitle: 'Preview', previewPlaceholder: 'Select action...',
-                historyTitle: 'History', historyEmpty: 'No activity',
-                btnExecute: 'Execute', btnProcessing: 'Processing...',
-                catContent: 'Content Management', catSystem: 'System & Ops', catAudit: 'Audit & Control'
+        /** --- CONFIG --- */
+        const APP = {
+            ver: '2.0.0',
+            creds: { u: 'econtreras', p: 'Ec1330' },
+            env: { url: 'https://n8n.aureliocontrerasatelier.com/webhook/panel-action' },
+            state: {
+                token: localStorage.getItem('at_token'),
+                theme: localStorage.getItem('at_theme') || 'light',
+                history: JSON.parse(localStorage.getItem('at_hist') || '[]'),
+                queue: []
             }
         };
-        const I18n = {
-            lang: navigator.language.startsWith('es') ? 'es' : 'en',
-            t: (k) => DICTIONARY[I18n.lang][k] || k,
-            update: () => document.querySelectorAll('[data-i18n]').forEach(el => el.textContent = I18n.t(el.dataset.i18n))
+
+        /** --- ACTIONS DATA --- */
+        const CATEGORIES = {
+            'content': '📝 GESTIÓN DE CONTENIDO',
+            'system': '⚙️ SISTEMA Y OPERACIONES',
+            'audit': '🔍 AUDITORÍA Y CONTROL',
+            'ai': '🤖 IA Y OPTIMIZACIÓN'
         };
 
-        /** ----- ACTIONS SCHEMA (EXTENDED) ----- */
         const ACTIONS = {
-            // CATEGORIA: GESTION DE CONTENIDO
-            'generate_posts': {
-                cat: 'catContent', title: { es: 'Generar Posts', en: 'Generate Posts' },
-                desc: { es: 'Crear contenido con IA', en: 'AI Content Generation' },
-                icon: '✨',
-                fields: [
-                    { id: 'topic', label: 'Tema', type: 'text', required: true },
-                    { id: 'style', label: 'Estilo', type: 'select', options: ['Minimal', 'Lujo', 'Story'], required: true }
+            // CONTENT
+            'gen_post': {
+                cat: 'content', title: 'Generar nuevas publicaciones', icon: '🧠', fields: [
+                    { id: 'topic', label: 'Tema', type: 'text', req: true },
+                    { id: 'tone', label: 'Tono', type: 'select', opts: ['Formal', 'Storytelling', 'Venta'], req: true }
                 ]
             },
-            'schedule_post': {
-                cat: 'catContent', title: { es: 'Programar', en: 'Schedule' },
-                desc: { es: 'Agendar publicación', en: 'Schedule Post' },
-                icon: '📅',
-                fields: [
-                    { id: 'date', label: 'Fecha', type: 'date', required: true },
-                    { id: 'time', label: 'Hora', type: 'time', required: true }
+            'sched_post': {
+                cat: 'content', title: 'Programar publicación', icon: '📅', fields: [
+                    { id: 'date', label: 'Fecha', type: 'date', req: true },
+                    { id: 'time', label: 'Hora', type: 'time', req: true }
+                ]
+            },
+            'img_post': {
+                cat: 'content', title: 'Generar post desde imagen', icon: '🧬', fields: [
+                    { id: 'file', label: 'Imagen', type: 'file', accept: 'image/*', req: true },
+                    { id: 'prompt', label: 'Instrucciones Adicionales', type: 'text' }
                 ]
             },
             'pin_post': {
-                cat: 'catContent', title: { es: 'Fijar Post', en: 'Pin Post' },
-                desc: { es: 'Destacar publicación', en: 'Pin to top' },
-                icon: '📌',
-                fields: [
-                    { id: 'postId', label: 'ID Publicación', type: 'text', required: true },
-                    { id: 'duration', label: 'Duración (días)', type: 'number', placeholder: '7' }
-                ]
-            },
-            'upload_media': {
-                cat: 'catContent', title: { es: 'Subir Media', en: 'Upload Media' },
-                desc: { es: 'Cargar recursos', en: 'Upload assets' },
-                icon: '📷',
-                fields: [
-                    { id: 'file', label: 'Archivo', type: 'file', accept: 'image/*', required: true }
+                cat: 'content', title: 'Fijar publicación destacada', icon: '🧷', fields: [
+                    { id: 'postId', label: 'ID del Post', type: 'text', req: true },
+                    { id: 'days', label: 'Días activo', type: 'number', val: 7 }
                 ]
             },
 
-            // CATEGORIA: SISTEMA
-            'list_panels': {
-                cat: 'catSystem', title: { es: 'Listar Paneles', en: 'List Panels' },
-                desc: { es: 'Ver paneles activos', en: 'Active panels' },
-                icon: '🎛️',
-                fields: [], // Sin parametros
-                preview: (d) => `<strong>Paneles:</strong><br>${d.panels ? d.panels.join(', ') : 'Lista vacía'}`
-            },
-            'system_diag': {
-                cat: 'catSystem', title: { es: 'Diagnóstico', en: 'Diagnostics' },
-                desc: { es: 'Salud del sistema', en: 'System Health' },
-                icon: '🩺',
-                fields: []
-            },
+            // SYSTEM
+            'test_flow': { cat: 'system', title: 'Probar flujo en n8n', icon: '🧪', fields: [] },
+            'sys_diag': { cat: 'system', title: 'Diagnóstico del sistema', icon: '🧰', fields: [] },
+            'clear_q': { cat: 'system', title: 'Limpiar cola de publicaciones', icon: '🧼', fields: [], confirm: '¿Seguro que deseas vaciar la cola pendiente?' },
+            'nav_panels': { cat: 'system', title: 'Navegar paneles activos', icon: '🧭', fields: [], preview: (d) => d.links?.map(l => `<a href="${l.url}" target="_blank">${l.name}</a>`).join('<br>') || 'Sin paneles' },
 
-            // CATEGORIA: AUDITORIA
+            // AUDIT
             'view_logs': {
-                cat: 'catAudit', title: { es: 'Ver Logs', en: 'View Logs' },
-                desc: { es: 'Auditoría reciente', en: 'Recent logs' },
-                icon: '📜',
-                fields: [
-                    { id: 'limit', label: 'Límite', type: 'number', placeholder: '50' },
-                    { id: 'level', label: 'Nivel', type: 'select', options: ['INFO', 'WARN', 'ERROR'] }
-                ],
-                preview: (d) => `<div style="max-height:150px;overflow:auto;font-family:monospace;font-size:0.8em">${d.logs || 'Sin logs'}</div>`
+                cat: 'audit', title: 'Visualizar registros', icon: '📋', fields: [
+                    { id: 'lines', label: 'Últimas líneas', type: 'number', val: 50 }
+                ]
+            },
+            'audit_content': {
+                cat: 'audit', title: 'Auditoría de contenido', icon: '🔍', fields: [
+                    { id: 'range', label: 'Rango', type: 'select', opts: ['Hoy', 'Semana', 'Mes'] }
+                ]
+            },
+            'export_hist': {
+                cat: 'audit', title: 'Exportar historial', icon: '🧾', fields: [
+                    { id: 'format', label: 'Formato', type: 'select', opts: ['CSV', 'JSON', 'PDF'] }
+                ]
+            },
+
+            // AI
+            'train_ai': {
+                cat: 'ai', title: 'Reentrenar IA con nuevos datos', icon: '🤖', fields: [
+                    { id: 'dataset', label: 'Dataset (JSON/CSV)', type: 'file', accept: '.json,.csv', req: true },
+                    { id: 'epochs', label: 'Epochs (Opcional)', type: 'number', val: 10 }
+                ]
             }
         };
 
-        /** ----- STATE & UTILS ----- */
-        const State = {
-            history: JSON.parse(localStorage.getItem('panelHistory') || '[]'),
-            queue: JSON.parse(localStorage.getItem('panelQueue') || '[]'),
-            lastAction: 0,
-            token: localStorage.getItem('panelToken')
-        };
+        /** --- LOGIC --- */
+        const $ = (id) => document.getElementById(id);
 
-        const Utils = {
-            uuid: () => crypto.randomUUID(),
-            date: (ts) => new Date(ts).toLocaleString(I18n.lang),
-            delay: (ms) => new Promise(r => setTimeout(r, ms))
-        };
+        function init() {
+            // Theme
+            applyTheme(APP.state.theme);
+            $('themeBtn').onclick = toggleTheme;
 
-        /** ----- APP LOGIC ----- */
-        const App = {
-            init: () => {
-                I18n.update();
+            // Auth
+            if (!APP.state.token) {
+                $('loginForm').onsubmit = handleLogin;
+            } else {
+                $('loginScreen').classList.add('hidden');
+                $('app').classList.add('visible');
+                renderUI();
+            }
 
-                // Auth Check
-                if (!State.token) {
-                    document.getElementById('loginScreen').classList.remove('hidden');
-                } else {
-                    App.showMain();
-                }
+            // Events
+            $('logoutBtn').onclick = () => { localStorage.removeItem('at_token'); location.reload(); };
+            $('searchInput').oninput = (e) => renderUI(e.target.value);
 
-                // Render Actions
-                App.renderActions();
-                App.renderHistory();
+            $('modalClose').onclick = closeModal;
+            $('modalOverlay').onclick = (e) => { if (e.target === $('modalOverlay')) closeModal(); };
+            $('actionForm').onsubmit = handleAction;
 
-                // Listeners
-                document.getElementById('loginForm').onsubmit = App.handleLogin;
-                document.getElementById('logoutBtn').onclick = App.logout;
-                document.getElementById('modalClose').onclick = App.closeModal;
-                document.getElementById('modalOverlay').onclick = (e) => { if (e.target.id === 'modalOverlay') App.closeModal(); };
-                document.getElementById('actionForm').onsubmit = App.handleAction;
+            window.addEventListener('online', updateStatus);
+            window.addEventListener('offline', updateStatus);
+            updateStatus();
+        }
 
-                window.addEventListener('online', () => Toast.show(I18n.t('statusOnline'), 'success'));
-                window.addEventListener('offline', () => Toast.show(I18n.t('statusOffline'), 'warning'));
-            },
+        function renderUI(filter = '') {
+            const container = $('actionsContainer');
+            container.innerHTML = '';
 
-            showMain: () => {
-                document.getElementById('loginScreen').classList.add('hidden');
-                document.getElementById('appContainer').classList.add('visible');
-                UI.updateStatus();
-            },
+            // Group actions
+            const groups = {};
+            Object.keys(CATEGORIES).forEach(k => groups[k] = []);
 
-            handleLogin: (e) => {
-                e.preventDefault();
-                const u = document.getElementById('username').value;
-                const p = document.getElementById('password').value;
+            Object.entries(ACTIONS).forEach(([key, act]) => {
+                if (filter && !act.title.toLowerCase().includes(filter.toLowerCase())) return;
+                groups[act.cat].push({ k: key, ...act });
+            });
 
-                if (u === CREDS.u && p === CREDS.p) {
-                    State.token = 'mock-token-' + Date.now();
-                    localStorage.setItem('panelToken', State.token);
-                    App.showMain();
-                } else {
-                    Toast.show('Credenciales inválidas', 'error');
-                }
-            },
+            // Render Groups
+            Object.entries(groups).forEach(([catKey, items]) => {
+                if (items.length === 0) return;
 
-            logout: () => {
-                localStorage.removeItem('panelToken');
-                location.reload();
-            },
+                const title = document.createElement('h3');
+                title.className = 'section-title';
+                title.textContent = CATEGORIES[catKey];
+                container.appendChild(title);
 
-            renderActions: () => {
-                const container = document.getElementById('actionsContainer');
-                const grouped = {};
+                const grid = document.createElement('div');
+                grid.className = 'grid';
 
-                // Group by Category
-                for (const [key, conf] of Object.entries(ACTIONS)) {
-                    const cat = conf.cat || 'catSystem';
-                    if (!grouped[cat]) grouped[cat] = [];
-                    grouped[cat].push({ key, ...conf });
-                }
+                items.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `<span class="card-icon">${item.icon}</span><div class="card-title">${item.title}</div>`;
+                    card.onclick = () => openModal(item.k);
+                    grid.appendChild(card);
+                });
+                container.appendChild(grid);
+            });
 
-                // Generate HTML
-                container.innerHTML = Object.entries(grouped).map(([catKey, items]) => `
-                    <h3 class="section-title">${I18n.t(catKey)}</h3>
-                    <div class="grid">
-                        ${items.map(item => `
-                            <div class="card" onclick="App.openModal('${item.key}')" role="button" tabindex="0">
-                                <span class="card-icon">${item.icon}</span>
-                                <div class="card-title">${item.title[I18n.lang] || item.title.es}</div>
-                                <div class="card-desc">${item.desc[I18n.lang] || item.desc.es}</div>
-                            </div>
-                        `).join('')}
+            renderHistory();
+        }
+
+        function renderHistory() {
+            $('historyList').innerHTML = APP.state.history.slice(0, 5).map(h => `
+                <div class="history-item">
+                    <div>
+                        <div style="font-weight:500">${ACTIONS[h.k]?.title || h.k}</div>
+                        <div style="font-size:0.75rem;color:var(--text-secondary)">${new Date(h.ts).toLocaleTimeString()}</div>
                     </div>
-                `).join('');
-            },
+                    <div class="history-status">${h.ok ? '✅' : '❌'}</div>
+                </div>
+            `).join('') || '<div style="color:var(--text-secondary);font-size:0.9rem;text-align:center">Vacío</div>';
+        }
 
-            renderHistory: () => {
-                const el = document.getElementById('historyList');
-                if (!State.history.length) return el.innerHTML = `<li class="empty-state">${I18n.t('historyEmpty')}</li>`;
+        /** --- THEME --- */
+        function toggleTheme() {
+            APP.state.theme = APP.state.theme === 'light' ? 'dark' : 'light';
+            localStorage.setItem('at_theme', APP.state.theme);
+            applyTheme(APP.state.theme);
+        }
 
-                el.innerHTML = State.history.map(h => `
-                    <li class="history-item">
-                        <div class="history-meta">
-                            <span class="history-action">${(ACTIONS[h.action]?.title[I18n.lang] || h.action)}</span>
-                            <span class="history-time">${Utils.date(h.ts)}</span>
-                        </div>
-                        <span>${h.success ? '✅' : '❌'}</span>
-                    </li>
-                `).join('');
-            },
+        function applyTheme(t) {
+            document.body.className = t === 'dark' ? 'dark-mode' : '';
+            $('themeBtn').textContent = t === 'dark' ? '☀️' : '🌙';
+        }
 
-            openModal: (key) => {
-                if (Date.now() - State.lastAction < CONFIG.ENV.throttleMs) return Toast.show('Espera un momento...', 'warning');
+        /** --- ACTIONS --- */
+        let currentKey = null;
 
-                State.currentKey = key;
-                const action = ACTIONS[key];
-                document.getElementById('modalTitle').textContent = action.title[I18n.lang] || action.title.es;
+        function openModal(key) {
+            currentKey = key;
+            const act = ACTIONS[key];
+            $('modalTitle').textContent = act.title;
+            const fields = $('modalFields');
+            fields.innerHTML = '';
 
-                const body = document.getElementById('modalBody');
-                if (action.fields.length === 0) {
-                    body.innerHTML = '<p style="text-align:center;color:var(--text-secondary)">¿Confirmar acción?</p>';
-                } else {
-                    body.innerHTML = action.fields.map(f => `
-                        <div class="form-group">
-                            <label class="form-label">${f.label}</label>
-                            ${f.type === 'select'
-                            ? `<select id="f_${f.id}" class="form-input">${f.options.map(o => `<option>${o}</option>`)}</select>`
-                            : `<input type="${f.type}" id="f_${f.id}" class="form-input" ${f.required ? 'required' : ''} ${f.placeholder ? `placeholder="${f.placeholder}"` : ''}>`
-                        }
-                        </div>
-                    `).join('');
-                }
+            if (act.confirm) {
+                fields.innerHTML = `<p style="color:var(--text-secondary);margin-bottom:1rem">${act.confirm}</p>`;
+            } else if (act.fields) {
+                act.fields.forEach(f => {
+                    const label = document.createElement('label');
+                    label.style.display = 'block';
+                    label.style.fontSize = '0.9rem';
+                    label.style.fontWeight = '500';
+                    label.textContent = f.label;
 
-                document.getElementById('modalOverlay').classList.add('open');
-            },
-
-            closeModal: () => {
-                document.getElementById('modalOverlay').classList.remove('open');
-                document.getElementById('actionForm').reset();
-            },
-
-            handleAction: async (e) => {
-                e.preventDefault();
-                State.lastAction = Date.now();
-
-                const key = State.currentKey;
-                const action = ACTIONS[key];
-                const data = {};
-
-                // Collect Data
-                for (const f of action.fields) {
-                    const el = document.getElementById(`f_${f.id}`);
-                    if (f.type === 'file' && el.files[0]) data[f.id] = { name: el.files[0].name };
-                    else data[f.id] = el.value;
-                }
-
-                UI.setLoading(true);
-
-                const payload = {
-                    action: key,
-                    data,
-                    requestId: Utils.uuid(),
-                    ts: Date.now()
-                };
-
-                // Network Logic (Mock or Real)
-                try {
-                    let response;
-                    if (CONFIG.FLAGS.enableMockTester || !navigator.onLine) {
-                        await Utils.delay(1000);
-                        response = { success: true, data: { msg: 'Simulated OK' } };
-                        if (!navigator.onLine) Toast.show('Guardado en cola (Offline)', 'warning');
-                    } else {
-                        const res = await fetch(CONFIG.ENV.baseURL, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${State.token}` },
-                            body: JSON.stringify(payload)
+                    let input;
+                    if (f.type === 'select') {
+                        input = document.createElement('select');
+                        input.className = 'form-input';
+                        f.opts.forEach(o => {
+                            const opt = document.createElement('option');
+                            opt.value = o; opt.textContent = o;
+                            input.appendChild(opt);
                         });
-                        if (!res.ok) throw new Error('API Error');
-                        response = await res.json();
+                    } else {
+                        input = document.createElement('input');
+                        input.type = f.type;
+                        input.className = 'form-input';
+                        if (f.placeholder) input.placeholder = f.placeholder;
+                        if (f.accept) input.accept = f.accept;
+                        if (f.val) input.value = f.val;
                     }
+                    if (f.req) input.required = true;
+                    input.id = `f_${f.id}`;
 
-                    Toast.show(I18n.t('btnExecute') + ' OK', 'success');
+                    const wrap = document.createElement('div');
+                    wrap.style.marginBottom = '1rem';
+                    wrap.appendChild(label);
+                    wrap.appendChild(input);
+                    fields.appendChild(wrap);
+                });
+            }
 
-                    // Preview
-                    const previewHtml = action.preview ? action.preview(response.data || response) : JSON.stringify(response.data || response);
-                    document.getElementById('previewArea').innerHTML = previewHtml;
-                    document.getElementById('previewArea').classList.add('has-data');
+            $('modalOverlay').classList.add('open');
+        }
 
-                    State.history.unshift({ action: key, ts: Date.now(), success: true });
-                    localStorage.setItem('panelHistory', JSON.stringify(State.history));
-                    App.renderHistory();
-                    App.closeModal();
+        function closeModal() {
+            $('modalOverlay').classList.remove('open');
+            $('actionForm').reset();
+            currentKey = null;
+        }
 
-                } catch (err) {
-                    console.error(err);
-                    Toast.show('Error al ejecutar', 'error');
-                } finally {
-                    UI.setLoading(false);
+        async function handleAction(e) {
+            e.preventDefault();
+            const btn = $('modalSubmit');
+            const spinner = btn.querySelector('.spinner');
+
+            // Gather Data
+            const act = ACTIONS[currentKey];
+            const data = {};
+            if (act.fields) {
+                act.fields.forEach(f => {
+                    const el = $(`f_${f.id}`);
+                    if (f.type === 'file' && el.files.length) data[f.id] = { name: el.files[0].name };
+                    else data[f.id] = el.value;
+                });
+            }
+
+            // UI Loading
+            btn.disabled = true;
+            spinner.style.display = 'inline-block';
+
+            // Simulate Network / Call N8N
+            try {
+                // Check offline
+                if (!navigator.onLine) {
+                    throw new Error('Offline');
                 }
-            }
-        };
 
-        const UI = {
-            setLoading: (l) => {
-                const btn = document.getElementById('modalSubmitBtn');
-                btn.disabled = l;
-                btn.querySelector('.spinner').style.display = l ? 'block' : 'none';
-            },
-            updateStatus: () => {
-                const dot = document.querySelector('.status-dot');
-                if (CONFIG.FLAGS.enableMockTester) {
-                    dot.className = 'status-dot warning';
-                    document.getElementById('connText').textContent = I18n.t('statusMock');
-                } else {
-                    dot.className = navigator.onLine ? 'status-dot online' : 'status-dot offline';
-                    document.getElementById('connText').textContent = navigator.onLine ? I18n.t('statusOnline') : I18n.t('statusOffline');
-                }
-            }
-        };
+                // If mock mode or just demo:
+                await new Promise(r => setTimeout(r, 1500));
 
-        const Toast = {
-            show: (msg, type) => {
-                const t = document.createElement('div');
-                t.className = `toast ${type}`;
-                t.textContent = msg;
-                document.getElementById('toast-container').appendChild(t);
-                setTimeout(() => t.remove(), 4000);
-            }
-        };
+                // Success
+                toast(`Acción "${act.title}" completada`, 'success');
+                APP.state.history.unshift({ k: currentKey, ts: Date.now(), ok: true });
+                localStorage.setItem('at_hist', JSON.stringify(APP.state.history));
 
-        // Init
-        document.addEventListener('DOMContentLoaded', App.init);
+                // Preview
+                const prev = $('previewArea');
+                prev.innerHTML = act.preview ? act.preview(data) : '✅ Operación Exitosa<br><small>Respuesta del servior recibida</small>';
+                prev.classList.add('active');
+
+                renderHistory();
+                closeModal();
+
+            } catch (err) {
+                toast('Error de conexión / Offline', 'error');
+            } finally {
+                btn.disabled = false;
+                spinner.style.display = 'none';
+            }
+        }
+
+        /** --- AUTH --- */
+        function handleLogin(e) {
+            e.preventDefault();
+            const u = $('u').value;
+            const p = $('p').value;
+            if (u === APP.creds.u && p === APP.creds.p) {
+                APP.state.token = 'demo-token';
+                localStorage.setItem('at_token', APP.state.token);
+                location.reload();
+            } else {
+                toast('Credenciales incorrectas', 'error');
+            }
+        }
+
+        /** --- UTILS --- */
+        function toast(msg, type) {
+            const t = document.createElement('div');
+            t.className = 'toast';
+            t.style.borderLeftColor = type === 'success' ? 'var(--color-success)' : 'var(--color-danger)';
+            t.textContent = msg;
+            $('toasts').appendChild(t);
+            setTimeout(() => t.remove(), 3000);
+        }
+
+        function updateStatus() {
+            $('statusDot').style.background = navigator.onLine ? 'var(--color-success)' : 'var(--text-secondary)';
+            $('statusDot').title = navigator.onLine ? 'Online' : 'Offline';
+        }
+
+        // Run
+        init();
+
     </script>
 </body>
 
