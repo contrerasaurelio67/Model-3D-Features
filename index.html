@@ -1593,7 +1593,7 @@
                     }
                 }).catch(() => {
                     const el = document.getElementById('post-select');
-                    if(el) el.innerHTML = '<option value="">Error al cargar</option>';
+                    if (el) el.innerHTML = '<option value="">Error al cargar</option>';
                 });
 
                 document.getElementById('schedule-btn').onclick = async () => {
@@ -1606,13 +1606,13 @@
                     }
 
                     modal.close();
-                    
+
                     // Check conflicts
                     await this.panel.sendRequest('checkScheduleConflicts', { scheduledTime });
-                    
+
                     // Schedule
                     const result = await this.panel.sendRequest('schedulePost', { postId, scheduledTime });
-                    
+
                     if (result) {
                         this.panel.metrics.increment('postsScheduled');
                     }
@@ -1770,7 +1770,7 @@
                     }
                 }).catch(() => {
                     const l = document.getElementById('posts-list');
-                    if(l) l.innerHTML = '<li class="atelier-list-item"><div style="color:var(--danger)">Error cargando posts</div></li>';
+                    if (l) l.innerHTML = '<li class="atelier-list-item"><div style="color:var(--danger)">Error cargando posts</div></li>';
                 });
             }
 
@@ -1879,9 +1879,9 @@
                 try {
                     const response = await this.panel.sendRequest('listActivePanels');
                     modal.close();
-                    
+
                     const panels = (response && response.data) ? response.data : [];
-                    
+
                     const content = panels.length ? panels.map(p => `
                         <li class="atelier-list-item">
                             <div>
@@ -1902,9 +1902,9 @@
                         actions: `<button class="atelier-btn atelier-btn-primary" onclick="modal.close()">Cerrar</button>`
                     });
 
-                } catch(e) {
-                     modal.close();
-                     modal.showError('Error', 'No se pudieron cargar los paneles');
+                } catch (e) {
+                    modal.close();
+                    modal.showError('Error', 'No se pudieron cargar los paneles');
                 }
             }
         }
@@ -1920,9 +1920,9 @@
                 try {
                     const response = await this.panel.sendRequest('getSystemLogs', { limit: 20 });
                     modal.close();
-                    
+
                     const logs = (response && response.data) ? response.data : this.panel.logs.slice(-20).reverse();
-                    
+
                     const logsHtml = logs.map(log => `
                         <li class="atelier-list-item">
                             <div>
@@ -1945,7 +1945,7 @@
                             <button class="atelier-btn atelier-btn-primary" onclick="panel.modules.audit.exportHistory()">Exportar</button>
                         `
                     });
-                } catch(e) {
+                } catch (e) {
                     modal.close();
                     modal.showError('Error', 'Fallo al recuperar logs');
                 }
