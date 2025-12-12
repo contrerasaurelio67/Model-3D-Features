@@ -1,44 +1,43 @@
-# Guía rápida de despliegue automático con cron
+# 🛠️ Guía rápida de despliegue automático con cron + alias `deploy`
 
-1. Edita tu archivo index.html en tu PC normalmente.
-   - Carpeta local: C:\Users\arcom\Panel-n8n\index.html
+### 1. Edita tu archivo `index.html` en tu PC
+- Ruta local:  
+  C:\Users\arcom\Panel-n8n\index.html
 
-2. Sube el archivo a tu VM con este comando en PowerShell:
+### 2. Sube el archivo a tu VM desde PowerShell
 scp -i $HOME\.ssh\google_compute_engine "C:\Users\arcom\Panel-n8n\index.html" contrerasaurelio67@34.148.6.253:/home/contrerasaurelio67/Panel-n8n/index.html
 
-2.1 Conectate por SSH desde Powershell: ssh -i $HOME\.ssh\google_compute_engine contrerasaurelio67@34.148.6.253
+### 3. Conéctate por SSH si quieres desplegar manualmente
+ssh -i $HOME\.ssh\google_compute_engine contrerasaurelio67@34.148.6.253
 
-2.2 Si quieres hacerlo manualmente y no esperar los 30 minutos ejecuta este comando en la VM ya conectado: /home/contrerasaurelio67/deploy.sh >> /home/contrerasaurelio67/deploy.log 2>&1
+### 4. Ejecuta el despliegue manual con el alias `deploy`
+Una vez dentro de la VM, simplemente escribe:
+deploy
 
-Luego verifica el log
+Este alias ejecuta el script deploy.sh, guarda el log y muestra las últimas líneas automáticamente.
 
-Te debe devolver un mensaje: 
-
-index.html                                                                            100%   42KB 305.8KB/s   00:00
+### 5. Mensaje esperado en el log
+Si hubo cambios:
 🚀 Comprobando cambios en index.html...
 🔄 Cambios detectados. Actualizando...
 🎉 index.html actualizado en Nginx.
 
-Si te sale esto ya el archivo se actualizo automáticamente.
+Si no hubo cambios:
+✅ Sin cambios en index.html. No se despliega.
 
-3. Si decides esperar los 30 min. el script deploy.sh en la VM se encargará de:
-   - Detectar si hay cambios en index.html.
-   - Actualizar automáticamente en /var/www/site/index.html.
-   - Ajustar permisos correctos para Nginx.
+### 6. Despliegue automático con cron (cada 30 min)
+Tu VM ejecuta el script automáticamente:
+*/30 * * * * /home/contrerasaurelio67/deploy.sh >> /home/contrerasaurelio67/deploy.log 2>&1
 
-4. Cron está configurado para ejecutar deploy.sh cada 30 minutos:
-   */30 * * * * /home/contrerasaurelio67/deploy.sh >> /home/contrerasaurelio67/deploy.log 2>&1
+### ✅ Resultado
+- Si hay cambios → se despliega automáticamente.
+- Si no hay cambios → no hace nada.
+- Puedes verificar en cualquier momento con:
+tail -n 20 /home/contrerasaurelio67/deploy.log
 
-5. Resultado:
-   - Si hay cambios → se despliega automáticamente.
-   - Si no hay cambios → no hace nada.
+### 🧠 Bonus: alias `deploy` en .bashrc
+alias deploy="/home/contrerasaurelio67/deploy.sh >> /home/contrerasaurelio67/deploy.log 2>&1 && tail -n 10 /home/contrerasaurelio67/deploy.log"
 
-6. Para verificar:
-   tail -n 20 /home/contrerasaurelio67/deploy.log
-   (muestra los últimos mensajes del script)
-
-# Conclusión:
+# 🧩 Conclusión
 Solo necesitas editar tu HTML local y subirlo con scp.
-El resto lo hace cron y deploy.sh automáticamente o también existe la opción de subirlo manualmente.
-
-Espero que esta guía te sirva de ayuda.
+Luego puedes esperar el cron o ejecutar deploy manualmente para ver el resultado al instante.
